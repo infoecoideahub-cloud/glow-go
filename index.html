@@ -25,7 +25,7 @@
   <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Dancing+Script:400,500,600,700&display=swap"></noscript>
   <link rel="preload" href="https://fonts.googleapis.com/css?family=Roboto:100,200,300,400,500,600,700,800,900,100i,200i,300i,400i,500i,600i,700i,800i,900i&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
   <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,200,300,400,500,600,700,800,900,100i,200i,300i,400i,500i,600i,700i,800i,900i&display=swap"></noscript>
-  <link rel="preload" as="style" href="assets/mobirise/css/mbr-additional.css?v=DpXlhy"><link rel="stylesheet" href="assets/mobirise/css/mbr-additional.css?v=DpXlhy" type="text/css">
+  <link rel="preload" as="style" href="assets/mobirise/css/mbr-additional.css?v=ne4ojP"><link rel="stylesheet" href="assets/mobirise/css/mbr-additional.css?v=ne4ojP" type="text/css">
 
   
   
@@ -60,13 +60,14 @@
                 <div class="info-widget">
                     <span class="widget-icon mbr-iconfont mbri-letter"></span>
                     <div class="widget-content display-4">
-                        <p class="mbr-fonts-style mbr-regular widget-title display-4">We’re here to help:</p>
+                        <p class="mbr-fonts-style mbr-regular widget-title display-4">If your any
+                            query:</p>
                         <p class="mbr-fonts-style mbr-regular widget-title display-4">info.ecoideahub@gmail.com
                         </p>
                     </div>
                 </div>
                 <div class="info-widget">
-                    <a href="tel:3235233175"><span class="widget-icon mbr-iconfont mobi-mbri-phone mobi-mbri"></span></a>
+                    <span class="widget-icon mbr-iconfont mobi-mbri-phone mobi-mbri"></span>
                     <div class="widget-content display-4">
                         <p class="mbr-fonts-style mbr-regular widget-title display-4">Have any
                             question?</p>
@@ -107,7 +108,7 @@
                     <li class="nav-item">
                         <a class="nav-link link text-primary display-4" href="page3.html">
                             Partners</a>
-                    </li><li class="nav-item"><a class="nav-link link text-primary display-4" href="page5.html">Other Projects&nbsp;<br></a></li><li class="nav-item"><a class="nav-link link text-primary display-4" href="index.html#custom-html-x">Contact</a></li><li class="nav-item">
+                    </li><li class="nav-item"><a class="nav-link link text-primary display-4" href="page3.html">Other Projects&nbsp;<br></a></li><li class="nav-item"><a class="nav-link link text-primary display-4" href="page3.html">Contact</a></li><li class="nav-item">
                         <a class="nav-link link text-primary display-4" href="index.html#faq">
                             FAQ</a>
                     </li></ul>
@@ -910,174 +911,525 @@
   </div>
 </div></div>
 
-<div id="booking"><!-- GLOW & GO — BOOKING FORM | Mobirise Code Block -->
+<div id="booking"><!-- =====================================================
+     GLOW & GO — BOOKING FORM (3-STEP VERSION)
+     Вставить через Mobirise > Code Editor (HTML блок)
+     Замени:
+       YOUR_BASIN_ENDPOINT  → URL из Basin
+       AIzaSyAzz80e6dDC8t2IZvaobcHCFOvQGNYtsNs  → Google Cloud API Key
+         (включи Places API + Maps JavaScript API)
+     ===================================================== -->
+
 <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<script>
+(function(){
+  var s=document.createElement('script');
+  s.src='https://maps.googleapis.com/maps/api/js?key=AIzaSyAzz80e6dDC8t2IZvaobcHCFOvQGNYtsNs&libraries=places&callback=gbInitAutocomplete';
+  s.async=true; s.defer=true; document.head.appendChild(s);
+})();
+</script>
+<!-- reCAPTCHA v3 -->
+<script src="https://www.google.com/recaptcha/api.js?render=6Lde76AsAAAAAFFoaIrXfT1VwzkbKhBgbX7hCcb"></script>
+
 <style>
+/* ═══════════════════════════════════════
+   TOKENS
+═══════════════════════════════════════ */
 #gg-book {
-  --blue:#17b9e8; --blue-dark:#0fa3d0; --blue-light:#e8f8fd;
-  --text:#1a2533; --muted:#6b7f96; --label:#374a5e;
-  --border:#d9e6ef; --bg:#f4f8fb; --white:#ffffff;
-  --radius:14px; --radius-sm:9px;
-  --shadow:0 6px 32px rgba(23,185,232,.10),0 1px 4px rgba(0,0,0,.06);
-  --font:'Inter Tight','Segoe UI',sans-serif;
-  font-family:var(--font); background:var(--bg);
-  padding:60px 16px 80px; box-sizing:border-box;
+  --blue:        #17b9e8;
+  --blue-dark:   #0fa3d0;
+  --blue-light:  #e8f8fd;
+  --text:        #1a2533;
+  --muted:       #6b7f96;
+  --label:       #374a5e;
+  --border:      #d9e6ef;
+  --bg:          #f4f8fb;
+  --white:       #ffffff;
+  --radius:      14px;
+  --radius-sm:   9px;
+  --shadow:      0 6px 32px rgba(23,185,232,.10), 0 1px 4px rgba(0,0,0,.06);
+  --font:        'Inter Tight','Segoe UI',sans-serif;
+  font-family: var(--font);
+  background: var(--bg);
+  padding: 60px 16px 80px;
+  box-sizing: border-box;
 }
-#gg-book * { box-sizing:border-box; }
-#gg-book .gb-wrap { max-width:680px; margin:0 auto; }
-#gg-book .gb-header { text-align:center; margin-bottom:32px; }
+#gg-book * { box-sizing: border-box; }
+
+/* ═══════════════════════════════════════
+   WRAPPER & HEADER
+═══════════════════════════════════════ */
+#gg-book .gb-wrap { max-width: 680px; margin: 0 auto; }
+
+#gg-book .gb-header { text-align: center; margin-bottom: 32px; }
 #gg-book .gb-badge {
-  display:inline-block; border:1.5px solid var(--blue); color:var(--blue);
-  font-size:11px; font-weight:700; letter-spacing:.12em; text-transform:uppercase;
-  padding:4px 16px; border-radius:100px; margin-bottom:14px;
+  display: inline-block;
+  border: 1.5px solid var(--blue); color: var(--blue);
+  font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase;
+  padding: 4px 16px; border-radius: 100px; margin-bottom: 14px;
 }
-#gg-book .gb-header h2 { font-size:clamp(24px,4vw,36px); font-weight:800; color:var(--text); margin:0 0 8px; line-height:1.15; }
-#gg-book .gb-header h2 span { color:var(--blue); }
-#gg-book .gb-header p { color:var(--muted); font-size:14.5px; margin:0; }
+#gg-book .gb-header h2 {
+  font-size: clamp(24px,4vw,36px); font-weight: 800;
+  color: var(--text); margin: 0 0 8px; line-height: 1.15;
+}
+#gg-book .gb-header h2 span { color: var(--blue); }
+#gg-book .gb-header p { color: var(--muted); font-size: 14.5px; margin: 0; }
+
+/* ═══════════════════════════════════════
+   MIN BANNER
+═══════════════════════════════════════ */
 #gg-book .gb-banner {
-  display:flex; align-items:center; gap:14px;
-  background:#17b9e8; border-radius:14px; padding:15px 20px; margin-bottom:24px; color:#fff;
+  display: flex; align-items: center; gap: 14px;
+  background: #17b9e8;
+  border-radius: 14px; padding: 15px 20px; margin-bottom: 24px; color: #fff;
 }
-#gg-book .gb-banner-icon { font-size:26px; flex-shrink:0; }
-#gg-book .gb-banner-text { font-size:13px; line-height:1.5; }
-#gg-book .gb-banner-text strong { font-size:14.5px; font-weight:800; display:block; margin-bottom:2px; }
-#gg-book .gb-card { background:var(--white); border-radius:20px; box-shadow:var(--shadow); border:1px solid var(--border); }
-#gg-book .gb-progress { padding:20px 32px 0; }
-#gg-book .gb-prog-top { display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; }
-#gg-book .gb-prog-label { font-size:12px; font-weight:700; color:var(--muted); letter-spacing:.04em; }
-#gg-book .gb-prog-count { font-size:12px; font-weight:800; color:var(--blue); }
-#gg-book .gb-prog-track { height:5px; background:#e0edf5; border-radius:100px; overflow:hidden; }
-#gg-book .gb-prog-fill { height:100%; background:var(--blue); border-radius:100px; transition:width .4s cubic-bezier(.4,0,.2,1); }
-#gg-book .gb-steps-row { display:flex; justify-content:space-between; margin-top:10px; padding-bottom:20px; border-bottom:1px solid var(--border); }
-#gg-book .gb-step-lbl { display:flex; align-items:center; gap:7px; font-size:11.5px; font-weight:700; color:#b0c4d4; transition:color .3s; }
-#gg-book .gb-step-lbl.active { color:var(--blue); }
-#gg-book .gb-step-lbl.done { color:var(--blue-dark); }
-#gg-book .gb-step-dot { width:22px; height:22px; border-radius:50%; border:2px solid #d0dfe8; background:#fff; display:flex; align-items:center; justify-content:center; font-size:10px; font-weight:800; color:#b0c4d4; transition:all .3s; flex-shrink:0; }
-#gg-book .gb-step-lbl.active .gb-step-dot { border-color:var(--blue); color:var(--blue); box-shadow:0 0 0 3px rgba(23,185,232,.15); }
-#gg-book .gb-step-lbl.done .gb-step-dot { border-color:var(--blue); background:var(--blue); color:#fff; }
-#gg-book .gb-steps-body { padding:28px 32px 0; overflow:visible; position:relative; }
-@media(max-width:520px){ #gg-book .gb-progress,#gg-book .gb-steps-body{padding-left:18px;padding-right:18px;} }
-#gg-book .gb-step { display:none; overflow:visible; }
-#gg-book .gb-step.active { display:block; animation:gbSlideIn .3s ease; overflow:visible; }
-@keyframes gbSlideIn { from{opacity:0;transform:translateX(18px)} to{opacity:1;transform:translateX(0)} }
-#gg-book .gb-step-title { font-size:17px; font-weight:800; color:var(--text); margin:0 0 4px; }
-#gg-book .gb-step-sub { font-size:13px; color:var(--muted); margin:0 0 22px; }
-#gg-book .gb-grid2 { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
-#gg-book .gb-grid3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:14px; }
-#gg-book .gb-grid4 { display:grid; grid-template-columns:2fr 1fr 1fr 1fr; gap:14px; }
-@media(max-width:560px){
-  #gg-book .gb-grid2{grid-template-columns:1fr;}
-  #gg-book .gb-grid3{grid-template-columns:1fr 1fr;}
-  #gg-book .gb-grid4{grid-template-columns:1fr 1fr;}
-  #gg-book .gb-grid4>:first-child{grid-column:1/-1;}
+#gg-book .gb-banner-icon { font-size: 26px; flex-shrink: 0; }
+#gg-book .gb-banner-text { font-size: 13px; line-height: 1.5; }
+#gg-book .gb-banner-text strong { font-size: 14.5px; font-weight: 800; display: block; margin-bottom: 2px; }
+
+/* ═══════════════════════════════════════
+   CARD
+═══════════════════════════════════════ */
+#gg-book .gb-card {
+  background: var(--white); border-radius: 20px;
+  box-shadow: var(--shadow); border: 1px solid var(--border);
 }
-@media(max-width:400px){ #gg-book .gb-grid3{grid-template-columns:1fr;} }
-#gg-book .gb-field { display:flex; flex-direction:column; gap:5px; margin-bottom:0; }
-#gg-book .gb-gap { margin-top:14px; }
-#gg-book .gb-field label { font-size:12.5px; font-weight:700; color:var(--label); }
-#gg-book .gb-field label .req { color:var(--blue); }
-#gg-book .gb-hint { font-size:11px; color:var(--muted); margin-top:3px; }
-#gg-book .gb-hint.success { color:#16a34a; font-weight:700; }
-#gg-book .gb-hint.error { color:#e53e3e; font-weight:700; }
-#gg-book input[type="text"],#gg-book input[type="email"],#gg-book input[type="tel"],#gg-book select,#gg-book textarea {
-  width:100%; padding:11px 15px; border:1.5px solid var(--border); border-radius:var(--radius-sm);
-  font-family:var(--font); font-size:14px; color:var(--text); background:#f9fbfd;
-  transition:border-color .18s,box-shadow .18s,background .18s; outline:none;
-  -webkit-appearance:none; appearance:none;
+
+/* ═══════════════════════════════════════
+   PROGRESS BAR
+═══════════════════════════════════════ */
+#gg-book .gb-progress {
+  padding: 20px 32px 0;
 }
-#gg-book input:focus,#gg-book select:focus,#gg-book textarea:focus { border-color:var(--blue); background:#fff; box-shadow:0 0 0 3px rgba(23,185,232,.14); }
-#gg-book input::placeholder,#gg-book textarea::placeholder { color:#b5c9d8; }
-#gg-book textarea { resize:vertical; min-height:88px; }
-#gg-book .gb-sel { position:relative; }
-#gg-book .gb-sel::after { content:''; pointer-events:none; position:absolute; right:14px; top:50%; transform:translateY(-50%); border-left:5px solid transparent; border-right:5px solid transparent; border-top:6px solid var(--muted); }
-#gg-book .gb-addr-wrap { position:relative; }
-#gg-book .gb-addr-wrap .gb-addr-icon { position:absolute; left:12px; top:50%; transform:translateY(-50%); font-size:15px; pointer-events:none; }
-#gg-book .gb-addr-wrap input { padding-left:36px !important; }
-.pac-container { font-family:'Inter Tight','Segoe UI',sans-serif !important; border-radius:10px !important; border:1.5px solid #17b9e8 !important; box-shadow:0 8px 24px rgba(23,185,232,.15) !important; margin-top:4px !important; }
+#gg-book .gb-prog-top {
+  display: flex; justify-content: space-between; align-items: center;
+  margin-bottom: 10px;
+}
+#gg-book .gb-prog-label {
+  font-size: 12px; font-weight: 700; color: var(--muted); letter-spacing: .04em;
+}
+#gg-book .gb-prog-count {
+  font-size: 12px; font-weight: 800; color: var(--blue);
+}
+#gg-book .gb-prog-track {
+  height: 5px; background: #e0edf5; border-radius: 100px; overflow: hidden;
+}
+#gg-book .gb-prog-fill {
+  height: 100%; background: var(--blue); border-radius: 100px;
+  transition: width .4s cubic-bezier(.4,0,.2,1);
+}
+
+/* Step labels row */
+#gg-book .gb-steps-row {
+  display: flex; justify-content: space-between;
+  margin-top: 10px; padding-bottom: 20px;
+  border-bottom: 1px solid var(--border);
+}
+#gg-book .gb-step-lbl {
+  display: flex; align-items: center; gap: 7px;
+  font-size: 11.5px; font-weight: 700; color: #b0c4d4;
+  transition: color .3s;
+}
+#gg-book .gb-step-lbl.active { color: var(--blue); }
+#gg-book .gb-step-lbl.done   { color: var(--blue-dark); }
+#gg-book .gb-step-dot {
+  width: 22px; height: 22px; border-radius: 50%;
+  border: 2px solid #d0dfe8; background: #fff;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 10px; font-weight: 800; color: #b0c4d4;
+  transition: all .3s; flex-shrink: 0;
+}
+#gg-book .gb-step-lbl.active .gb-step-dot {
+  border-color: var(--blue); color: var(--blue);
+  box-shadow: 0 0 0 3px rgba(23,185,232,.15);
+}
+#gg-book .gb-step-lbl.done .gb-step-dot {
+  border-color: var(--blue); background: var(--blue); color: #fff;
+}
+
+/* ═══════════════════════════════════════
+   STEPS CONTAINER
+═══════════════════════════════════════ */
+#gg-book .gb-steps-body { padding: 28px 32px 0; overflow: visible; position: relative; }
+@media (max-width: 520px) {
+  #gg-book .gb-progress,
+  #gg-book .gb-steps-body { padding-left: 18px; padding-right: 18px; }
+  #gg-book .gb-picker-drop { width: calc(100vw - 60px); left: 0; }
+}
+
+#gg-book .gb-step { display: none; overflow: visible; }
+#gg-book .gb-step.active { display: block; animation: gbSlideIn .3s ease; overflow: visible; }
+@keyframes gbSlideIn {
+  from { opacity: 0; transform: translateX(18px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+#gg-book .gb-step.back { animation: gbSlideBack .3s ease; }
+@keyframes gbSlideBack {
+  from { opacity: 0; transform: translateX(-18px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+#gg-book .gb-step-title {
+  font-size: 17px; font-weight: 800; color: var(--text);
+  margin: 0 0 4px;
+}
+#gg-book .gb-step-sub {
+  font-size: 13px; color: var(--muted); margin: 0 0 22px;
+}
+
+/* ═══════════════════════════════════════
+   FORM ELEMENTS
+═══════════════════════════════════════ */
+#gg-book .gb-grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+#gg-book .gb-grid3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
+#gg-book .gb-grid4 { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 14px; }
+@media (max-width: 560px) {
+  #gg-book .gb-grid2 { grid-template-columns: 1fr; }
+  #gg-book .gb-grid3 { grid-template-columns: 1fr 1fr; }
+  #gg-book .gb-grid4 { grid-template-columns: 1fr 1fr; }
+  #gg-book .gb-grid4 > :first-child { grid-column: 1/-1; }
+}
+@media (max-width: 400px) {
+  #gg-book .gb-grid3 { grid-template-columns: 1fr; }
+}
+
+#gg-book .gb-field { display: flex; flex-direction: column; gap: 5px; margin-bottom: 0; }
+#gg-book .gb-gap   { margin-top: 14px; }
+#gg-book .gb-field label { font-size: 12.5px; font-weight: 700; color: var(--label); }
+#gg-book .gb-field label .req { color: var(--blue); }
+#gg-book .gb-hint { font-size: 11px; color: var(--muted); margin-top: 3px; }
+
+#gg-book input[type="text"],
+#gg-book input[type="email"],
+#gg-book input[type="tel"],
+#gg-book select,
+#gg-book textarea {
+  width: 100%; padding: 11px 15px;
+  border: 1.5px solid var(--border); border-radius: var(--radius-sm);
+  font-family: var(--font); font-size: 14px; color: var(--text);
+  background: #f9fbfd;
+  transition: border-color .18s, box-shadow .18s, background .18s;
+  outline: none; -webkit-appearance: none; appearance: none;
+}
+#gg-book input:focus, #gg-book select:focus, #gg-book textarea:focus {
+  border-color: var(--blue); background: #fff;
+  box-shadow: 0 0 0 3px rgba(23,185,232,.14);
+}
+#gg-book input::placeholder, #gg-book textarea::placeholder { color: #b5c9d8; }
+#gg-book textarea { resize: vertical; min-height: 88px; }
+
+/* Select */
+#gg-book .gb-sel { position: relative; }
+#gg-book .gb-sel::after {
+  content:''; pointer-events:none; position:absolute;
+  right:14px; top:50%; transform:translateY(-50%);
+  border-left:5px solid transparent; border-right:5px solid transparent;
+  border-top:6px solid var(--muted);
+}
+
+/* Address icon */
+#gg-book .gb-addr-wrap { position: relative; }
+#gg-book .gb-addr-wrap .gb-addr-icon {
+  position:absolute; left:12px; top:50%; transform:translateY(-50%);
+  font-size:15px; pointer-events:none;
+}
+#gg-book .gb-addr-wrap input { padding-left: 36px !important; }
+
+/* Google autocomplete */
+.pac-container {
+  font-family:'Inter Tight','Segoe UI',sans-serif !important;
+  border-radius:10px !important; border:1.5px solid #17b9e8 !important;
+  box-shadow:0 8px 24px rgba(23,185,232,.15) !important; margin-top:4px !important;
+}
 .pac-item { padding:8px 14px !important; font-size:13px !important; cursor:pointer !important; }
 .pac-item:hover { background:#e8f8fd !important; }
 .pac-item-query { font-weight:700 !important; color:#1a2533 !important; }
 .pac-icon { display:none !important; }
-#gg-book .gb-stepper { display:flex; align-items:center; border:1.5px solid var(--border); border-radius:var(--radius-sm); background:#f9fbfd; overflow:hidden; transition:border-color .18s; }
-#gg-book .gb-stepper:focus-within { border-color:var(--blue); box-shadow:0 0 0 3px rgba(23,185,232,.14); }
-#gg-book .gb-stepper button { width:40px; min-width:40px; height:42px; background:none; border:none; cursor:pointer; font-size:18px; color:var(--blue); font-weight:700; display:flex; align-items:center; justify-content:center; transition:background .15s; flex-shrink:0; }
+
+/* Stepper */
+#gg-book .gb-stepper {
+  display:flex; align-items:center;
+  border:1.5px solid var(--border); border-radius:var(--radius-sm);
+  background:#f9fbfd; overflow:hidden;
+  transition:border-color .18s, box-shadow .18s;
+}
+#gg-book .gb-stepper:focus-within {
+  border-color:var(--blue); box-shadow:0 0 0 3px rgba(23,185,232,.14);
+}
+#gg-book .gb-stepper button {
+  width:40px; min-width:40px; height:42px; background:none; border:none;
+  cursor:pointer; font-size:18px; color:var(--blue); font-weight:700;
+  display:flex; align-items:center; justify-content:center;
+  transition:background .15s; flex-shrink:0;
+}
 #gg-book .gb-stepper button:hover { background:var(--blue-light); }
-#gg-book .gb-stepper .gb-step-val { flex:1; text-align:center; font-size:15px; font-weight:700; color:var(--text); }
-#gg-book .gb-tiles { display:grid; grid-template-columns:repeat(3,1fr); gap:9px; }
-@media(max-width:520px){ #gg-book .gb-tiles{grid-template-columns:repeat(2,1fr);} }
-#gg-book .gb-tile { display:flex; align-items:center; gap:8px; padding:10px 12px; border:1.5px solid var(--border); border-radius:var(--radius-sm); cursor:pointer; background:#f9fbfd; transition:border-color .18s,background .18s; user-select:none; }
-#gg-book .gb-tile:hover,#gg-book .gb-tile.on { border-color:var(--blue); background:var(--blue-light); }
-#gg-book .gb-tile input[type="checkbox"] { width:15px; height:15px; min-width:15px; padding:0; margin:0; cursor:pointer; accent-color:var(--blue); flex-shrink:0; }
+#gg-book .gb-stepper .gb-step-val {
+  flex:1; text-align:center; font-size:15px; font-weight:700; color:var(--text);
+}
+
+/* Tiles (checkboxes) */
+#gg-book .gb-tiles {
+  display: grid; grid-template-columns: repeat(3,1fr); gap: 9px;
+}
+@media (max-width:520px) { #gg-book .gb-tiles { grid-template-columns:repeat(2,1fr); } }
+#gg-book .gb-tile {
+  display:flex; align-items:center; gap:8px; padding:10px 12px;
+  border:1.5px solid var(--border); border-radius:var(--radius-sm);
+  cursor:pointer; background:#f9fbfd;
+  transition:border-color .18s, background .18s; user-select:none;
+}
+#gg-book .gb-tile:hover, #gg-book .gb-tile.on {
+  border-color:var(--blue); background:var(--blue-light);
+}
+#gg-book .gb-tile input[type="checkbox"] {
+  width:15px; height:15px; min-width:15px;
+  padding:0; margin:0; cursor:pointer; accent-color:var(--blue); flex-shrink:0;
+}
 #gg-book .gb-tile-ico { font-size:16px; line-height:1; flex-shrink:0; }
 #gg-book .gb-tile-lbl { font-size:12.5px; font-weight:600; color:var(--label); line-height:1.3; }
+
+/* Yes/No */
 #gg-book .gb-yn { display:flex; gap:10px; }
-#gg-book .gb-yn-tile { flex:1; display:flex; align-items:center; justify-content:center; gap:7px; padding:10px 14px; border:1.5px solid var(--border); border-radius:var(--radius-sm); cursor:pointer; background:#f9fbfd; user-select:none; font-size:13px; font-weight:700; color:var(--label); transition:border-color .18s,background .18s; }
+#gg-book .gb-yn-tile {
+  flex:1; display:flex; align-items:center; justify-content:center; gap:7px;
+  padding:10px 14px; border:1.5px solid var(--border); border-radius:var(--radius-sm);
+  cursor:pointer; background:#f9fbfd; user-select:none;
+  font-size:13px; font-weight:700; color:var(--label);
+  transition:border-color .18s, background .18s;
+}
 #gg-book .gb-yn-tile input[type="radio"] { accent-color:var(--blue); }
 #gg-book .gb-yn-tile.on { border-color:var(--blue); background:var(--blue-light); color:var(--blue-dark); }
 
-/* DATE PICKER */
+/* ═══════════════════════════════════════
+   CUSTOM DATE PICKER
+═══════════════════════════════════════ */
 #gg-book .gb-picker-wrap { position:relative; overflow:visible; }
-#gg-book .gb-picker-trigger { display:flex; align-items:center; gap:10px; padding:11px 15px; border:1.5px solid var(--border); border-radius:var(--radius-sm); background:#f9fbfd; cursor:pointer; user-select:none; transition:border-color .18s,box-shadow .18s,background .18s; }
-#gg-book .gb-picker-trigger:hover,#gg-book .gb-picker-trigger.open { border-color:var(--blue); background:#fff; box-shadow:0 0 0 3px rgba(23,185,232,.14); }
+#gg-book .gb-picker-trigger {
+  display:flex; align-items:center; gap:10px; padding:11px 15px;
+  border:1.5px solid var(--border); border-radius:var(--radius-sm);
+  background:#f9fbfd; cursor:pointer; user-select:none;
+  transition:border-color .18s, box-shadow .18s, background .18s;
+}
+#gg-book .gb-picker-trigger:hover,
+#gg-book .gb-picker-trigger.open { border-color:var(--blue); background:#fff; box-shadow:0 0 0 3px rgba(23,185,232,.14); }
 #gg-book .gb-picker-trigger.filled { border-color:var(--blue); }
 #gg-book .gb-picker-display { flex:1; font-size:14px; color:#b5c9d8; }
 #gg-book .gb-picker-trigger.filled .gb-picker-display { color:var(--text); font-weight:600; }
 #gg-book .gb-picker-arrow { font-size:12px; color:var(--muted); transition:transform .2s; }
 #gg-book .gb-picker-trigger.open .gb-picker-arrow { transform:rotate(180deg); }
-#gg-book .gb-picker-drop { display:none; position:absolute; top:calc(100% + 6px); left:0; width:320px; min-width:280px; background:#fff; border:1.5px solid var(--blue); border-radius:14px; box-shadow:0 8px 40px rgba(23,185,232,.25); padding:16px; z-index:99999; }
+#gg-book .gb-picker-drop {
+  display:none; position:absolute; top:calc(100% + 6px); left:0;
+  width:320px; min-width:280px;
+  background:#fff; border:1.5px solid var(--blue); border-radius:14px;
+  box-shadow:0 8px 40px rgba(23,185,232,.25); padding:16px; z-index:99999;
+}
 #gg-book .gb-picker-drop.open { display:block; }
 #gg-book .gb-cal-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:12px; }
-#gg-book .gb-cal-nav { background:none; border:1.5px solid var(--border); border-radius:8px; width:32px; height:32px; cursor:pointer; font-size:18px; color:var(--blue); display:flex; align-items:center; justify-content:center; transition:background .15s; }
+#gg-book .gb-cal-nav {
+  background:none; border:1.5px solid var(--border); border-radius:8px;
+  width:32px; height:32px; cursor:pointer; font-size:18px; color:var(--blue);
+  display:flex; align-items:center; justify-content:center; transition:background .15s;
+}
 #gg-book .gb-cal-nav:hover { background:var(--blue-light); border-color:var(--blue); }
 #gg-book .gb-cal-month { font-size:14px; font-weight:800; color:var(--text); }
-#gg-book .gb-cal-days { display:grid; grid-template-columns:repeat(7,1fr); margin-bottom:6px; }
-#gg-book .gb-cal-days span { text-align:center; font-size:11px; font-weight:700; color:var(--muted); padding:4px 0; }
+#gg-book .gb-cal-days {
+  display:grid; grid-template-columns:repeat(7,1fr); margin-bottom:6px;
+}
+#gg-book .gb-cal-days span {
+  text-align:center; font-size:11px; font-weight:700; color:var(--muted); padding:4px 0;
+}
 #gg-book .gb-cal-grid { display:grid; grid-template-columns:repeat(7,1fr); gap:3px; margin-bottom:14px; }
-#gg-book .gb-cal-grid .gc-day { aspect-ratio:1; display:flex; align-items:center; justify-content:center; font-size:13px; font-weight:600; color:var(--text); border-radius:8px; cursor:pointer; border:1.5px solid transparent; transition:background .15s,color .15s; }
+#gg-book .gb-cal-grid .gc-day {
+  aspect-ratio:1; display:flex; align-items:center; justify-content:center;
+  font-size:13px; font-weight:600; color:var(--text); border-radius:8px;
+  cursor:pointer; border:1.5px solid transparent; transition:background .15s, color .15s;
+}
 #gg-book .gb-cal-grid .gc-day:hover { background:var(--blue-light); border-color:var(--blue); }
 #gg-book .gb-cal-grid .gc-day.selected { background:var(--blue); color:#fff; border-color:var(--blue); }
 #gg-book .gb-cal-grid .gc-day.today { border-color:var(--blue); color:var(--blue); }
 #gg-book .gb-cal-grid .gc-day.today.selected { color:#fff; }
 #gg-book .gb-cal-grid .gc-day.disabled { color:#ccc; cursor:default; pointer-events:none; }
 #gg-book .gb-cal-grid .gc-day.empty { cursor:default; pointer-events:none; }
-#gg-book .gb-picker-confirm { width:100%; padding:10px; background:var(--blue); color:#fff; font-family:var(--font); font-size:13px; font-weight:800; border:none; border-radius:100px; cursor:pointer; transition:background .18s; }
+#gg-book .gb-time-row {
+  display:flex; align-items:center; gap:10px;
+  padding-top:12px; border-top:1.5px solid var(--border); margin-bottom:12px;
+}
+#gg-book .gb-time-label { font-size:12.5px; font-weight:700; color:var(--label); white-space:nowrap; }
+#gg-book .gb-picker-confirm {
+  width:100%; padding:10px; background:var(--blue); color:#fff;
+  font-family:var(--font); font-size:13px; font-weight:800;
+  border:none; border-radius:100px; cursor:pointer; transition:background .18s;
+}
 #gg-book .gb-picker-confirm:disabled { background:#b0d8e8; cursor:not-allowed; }
 #gg-book .gb-picker-confirm:not(:disabled):hover { background:var(--blue-dark); }
-#gg-book .gb-price-note { margin-top:20px; background:var(--blue-light); border:1.5px solid rgba(23,185,232,.28); border-radius:var(--radius-sm); padding:13px 16px; display:flex; align-items:flex-start; gap:10px; }
+
+/* ═══════════════════════════════════════
+   PRICE NOTE
+═══════════════════════════════════════ */
+#gg-book .gb-price-note {
+  margin-top: 20px; background:var(--blue-light);
+  border:1.5px solid rgba(23,185,232,.28); border-radius:var(--radius-sm);
+  padding:13px 16px; display:flex; align-items:flex-start; gap:10px;
+}
 #gg-book .gb-pn-icon { font-size:18px; flex-shrink:0; line-height:1.3; }
 #gg-book .gb-pn-text { font-size:13px; color:var(--label); line-height:1.5; }
 #gg-book .gb-pn-text strong { color:var(--blue-dark); font-weight:700; }
+
+/* ═══════════════════════════════════════
+   LEGAL
+═══════════════════════════════════════ */
 #gg-book .gb-legal { display:flex; flex-direction:column; gap:10px; margin-top:16px; }
-#gg-book .gb-legal-item { display:flex; align-items:flex-start; gap:10px; padding:11px 13px; border:1.5px solid var(--border); border-radius:var(--radius-sm); background:#f9fbfd; transition:border-color .18s,background .18s; }
+#gg-book .gb-legal-item {
+  display:flex; align-items:flex-start; gap:10px; padding:11px 13px;
+  border:1.5px solid var(--border); border-radius:var(--radius-sm);
+  background:#f9fbfd; transition:border-color .18s, background .18s;
+}
 #gg-book .gb-legal-item.on { border-color:var(--blue); background:var(--blue-light); }
-#gg-book .gb-legal-item input[type="checkbox"] { width:16px; height:16px; min-width:16px; margin-top:2px; cursor:pointer; accent-color:var(--blue); }
+#gg-book .gb-legal-item input[type="checkbox"] {
+  width:16px; height:16px; min-width:16px; margin-top:2px; cursor:pointer; accent-color:var(--blue);
+}
 #gg-book .gb-legal-item label { font-size:12px; color:var(--label); line-height:1.5; cursor:pointer; }
 #gg-book .gb-legal-item label a { color:var(--blue); text-decoration:underline; }
-#gg-book .gb-nav { display:flex; justify-content:space-between; align-items:center; padding:24px 32px 28px; border-top:1px solid var(--border); margin-top:24px; gap:12px; }
-@media(max-width:520px){ #gg-book .gb-nav{padding:20px 18px 24px;} }
-#gg-book .gb-btn-back { display:inline-flex; align-items:center; gap:6px; padding:12px 24px; background:none; border:1.5px solid var(--border); border-radius:100px; font-family:var(--font); font-size:14px; font-weight:700; color:var(--muted); cursor:pointer; transition:border-color .18s,color .18s; }
+
+/* ═══════════════════════════════════════
+   NAV BUTTONS
+═══════════════════════════════════════ */
+#gg-book .gb-nav {
+  display:flex; justify-content:space-between; align-items:center;
+  padding: 24px 32px 28px; border-top:1px solid var(--border); margin-top:24px;
+  gap: 12px;
+}
+@media (max-width:520px) { #gg-book .gb-nav { padding:20px 18px 24px; } }
+
+#gg-book .gb-btn-back {
+  display:inline-flex; align-items:center; gap:6px;
+  padding:12px 24px; background:none;
+  border:1.5px solid var(--border); border-radius:100px;
+  font-family:var(--font); font-size:14px; font-weight:700; color:var(--muted);
+  cursor:pointer; transition:border-color .18s, color .18s;
+}
 #gg-book .gb-btn-back:hover { border-color:var(--blue); color:var(--blue); }
 #gg-book .gb-btn-back.hidden { visibility:hidden; pointer-events:none; }
-#gg-book .gb-btn-next { display:inline-flex; align-items:center; justify-content:center; gap:8px; padding:13px 36px; background:var(--blue); color:#fff; font-family:var(--font); font-size:14px; font-weight:800; border:none; border-radius:100px; cursor:pointer; transition:background .18s,transform .14s,box-shadow .18s; box-shadow:0 4px 16px rgba(23,185,232,.35); flex:1; max-width:260px; }
+
+#gg-book .gb-btn-next {
+  display:inline-flex; align-items:center; justify-content:center; gap:8px;
+  padding:13px 36px; background:var(--blue); color:#fff;
+  font-family:var(--font); font-size:14px; font-weight:800;
+  border:none; border-radius:100px; cursor:pointer;
+  transition:background .18s, transform .14s, box-shadow .18s;
+  box-shadow:0 4px 16px rgba(23,185,232,.35); flex:1; max-width:260px;
+}
 #gg-book .gb-btn-next:hover { background:var(--blue-dark); transform:translateY(-1px); }
 #gg-book .gb-btn-next:disabled { background:#b0d8e8; cursor:not-allowed; transform:none; box-shadow:none; }
-#gg-book .gb-success { display:none; text-align:center; padding:60px 32px; }
-#gg-book .gb-ok { width:68px; height:68px; background:var(--blue-light); border:2px solid var(--blue); border-radius:50%; display:flex; align-items:center; justify-content:center; margin:0 auto 20px; font-size:30px; }
+
+/* ═══════════════════════════════════════
+   SUCCESS (inline fallback)
+═══════════════════════════════════════ */
+#gg-book .gb-success {
+  display:none; text-align:center; padding:60px 32px;
+}
+#gg-book .gb-ok {
+  width:68px; height:68px; background:var(--blue-light); border:2px solid var(--blue);
+  border-radius:50%; display:flex; align-items:center; justify-content:center;
+  margin:0 auto 20px; font-size:30px;
+}
 #gg-book .gb-success h3 { font-size:22px; font-weight:800; color:var(--text); margin:0 0 8px; }
 #gg-book .gb-success p { color:var(--muted); font-size:14px; margin:0; line-height:1.6; }
+
+/* ═══════════════════════════════════════
+   POPUP
+═══════════════════════════════════════ */
+#gg-popup-overlay {
+  display:none; position:fixed; inset:0; z-index:99999;
+  background:rgba(10,30,50,.55); backdrop-filter:blur(4px);
+  -webkit-backdrop-filter:blur(4px);
+  align-items:center; justify-content:center; padding:20px;
+}
+#gg-popup-overlay.open { display:flex !important; align-items:center; justify-content:center; animation:ggFadeIn .3s ease; }
+@keyframes ggFadeIn { from{opacity:0} to{opacity:1} }
+#gg-popup {
+  background:#ffffff; border-radius:20px;
+  border: 1.5px solid #d9e6ef;
+  box-shadow:0 6px 32px rgba(23,185,232,.14), 0 2px 8px rgba(0,0,0,.08);
+  padding:44px 36px 36px; max-width:440px; width:100%;
+  text-align:center; position:relative;
+  animation:ggPopIn .35s cubic-bezier(.34,1.56,.64,1);
+  margin: auto;
+}
+@keyframes ggPopIn {
+  from{opacity:0;transform:scale(.88) translateY(20px)}
+  to{opacity:1;transform:scale(1) translateY(0)}
+}
+#gg-popup .gg-pop-close {
+  position:absolute; top:16px; right:18px;
+  background:none; border:none; cursor:pointer;
+  font-size:20px; color:#aac4d0; transition:color .15s;
+}
+#gg-popup .gg-pop-close:hover { color:#374a5e; }
+#gg-popup .gg-pop-sparkles { font-size:48px; margin-bottom:14px; display:block; }
+#gg-popup .gg-pop-logo { font-size:12px; font-weight:800; letter-spacing:.12em; text-transform:uppercase; color:#17b9e8; margin-bottom:12px; }
+#gg-popup .gg-pop-divider { width:40px; height:3px; background:#17b9e8; border-radius:100px; margin:0 auto 18px; }
+#gg-popup h2 { font-family:'Inter Tight','Segoe UI',sans-serif; font-size:clamp(20px,4vw,26px); font-weight:900; color:#1a2533; margin:0 0 12px; line-height:1.2; }
+#gg-popup h2 span { color:#17b9e8; }
+#gg-popup p { font-family:'Inter Tight','Segoe UI',sans-serif; font-size:14px; color:#6b7f96; line-height:1.65; margin:0 0 24px; }
+#gg-popup .gg-pop-badge {
+  display:inline-flex; align-items:center; gap:8px;
+  background:#e8f8fd; border:1.5px solid rgba(23,185,232,.3);
+  border-radius:100px; padding:7px 18px; margin-bottom:24px;
+  font-family:'Inter Tight','Segoe UI',sans-serif; font-size:12.5px; font-weight:700; color:#0fa3d0;
+}
+#gg-popup .gg-pop-btn {
+  display:inline-flex; align-items:center; justify-content:center; gap:8px;
+  padding:13px 40px; background:#17b9e8; color:#fff;
+  font-family:'Inter Tight','Segoe UI',sans-serif; font-size:14px; font-weight:800;
+  border:none; border-radius:100px; cursor:pointer; width:100%;
+  transition:background .18s, transform .14s;
+  box-shadow:0 4px 18px rgba(23,185,232,.38);
+}
+#gg-popup .gg-pop-btn:hover { background:#0fa3d0; transform:translateY(-1px); }
+
+/* Honeypot */
 #gg-book .gb-hp { position:absolute; left:-9999px; top:-9999px; opacity:0; height:0; }
-#gg-book .gb-field input.invalid,#gg-book .gb-field select.invalid { border-color:#e53e3e !important; }
-#gg-book #gb-discount.valid { border-color:#22c55e !important; box-shadow:0 0 0 3px rgba(34,197,94,.14) !important; }
-#gg-book #gb-discount.invalid-code { border-color:#e53e3e !important; box-shadow:0 0 0 3px rgba(229,62,62,.14) !important; }
+
+/* Validation error */
+#gg-book .gb-field-err { font-size:11.5px; color:#e53e3e; font-weight:600; margin-top:3px; display:none; }
+#gg-book .gb-field input.invalid,
+#gg-book .gb-field select.invalid { border-color:#e53e3e !important; }
+
+/* Discount field states */
+#gg-book #gb-discount.valid   { border-color: #22c55e !important; box-shadow: 0 0 0 3px rgba(34,197,94,.14) !important; }
+#gg-book #gb-discount.invalid-code { border-color: #e53e3e !important; box-shadow: 0 0 0 3px rgba(229,62,62,.14) !important; }
+#gg-book .gb-hint.success { color: #16a34a; font-weight: 700; }
+#gg-book .gb-hint.error   { color: #e53e3e; font-weight: 700; }
+
+
+/* Desktop: Date first (order-1), Type second (order-2) */
+#gg-book .gb-swap-mobile { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+#gg-book .gb-order-1 { order: 1; }
+#gg-book .gb-order-2 { order: 2; }
+/* Mobile: same order (Date still first naturally) */
+@media (max-width: 480px) {
+  #gg-book .gb-swap-mobile { grid-template-columns: 1fr; }
+  #gg-book .gb-order-1 { order: 1; }
+  #gg-book .gb-order-2 { order: 2; }
+}
+
 </style>
 
+<!-- ══════════════════════════════════════════
+     HTML
+══════════════════════════════════════════ -->
 <div id="gg-book">
   <div class="gb-wrap">
+
+    <!-- Header -->
     <div class="gb-header">
       <div class="gb-badge">Book a Cleaning</div>
       <h2>Schedule Your <span>Service</span></h2>
       <p>Fill out the form below — our manager will get back to you within 15 minutes.</p>
     </div>
+
+    <!-- Banner -->
     <div class="gb-banner">
       <span class="gb-banner-icon">⏱️</span>
       <div class="gb-banner-text">
@@ -1085,126 +1437,108 @@
         Final price depends on home size, service type, and add-ons. Confirmed before any charge.
       </div>
     </div>
+
+    <!-- Card -->
     <div class="gb-card">
+
+      <!-- Progress -->
       <div class="gb-progress">
         <div class="gb-prog-top">
           <span class="gb-prog-label" id="gb-prog-label">Step 1 of 3</span>
           <span class="gb-prog-count" id="gb-prog-name">Contact Info</span>
         </div>
-        <div class="gb-prog-track"><div class="gb-prog-fill" id="gb-prog-fill" style="width:33.3%"></div></div>
+        <div class="gb-prog-track">
+          <div class="gb-prog-fill" id="gb-prog-fill" style="width:33.3%"></div>
+        </div>
         <div class="gb-steps-row">
-          <span class="gb-step-lbl active" id="sl-1"><span class="gb-step-dot">1</span> Contact</span>
-          <span class="gb-step-lbl" id="sl-2"><span class="gb-step-dot">2</span> Property &amp; Service</span>
-          <span class="gb-step-lbl" id="sl-3"><span class="gb-step-dot">3</span> Extras &amp; Confirm</span>
+          <span class="gb-step-lbl active" id="sl-1">
+            <span class="gb-step-dot">1</span> Contact
+          </span>
+          <span class="gb-step-lbl" id="sl-2">
+            <span class="gb-step-dot">2</span> Property &amp; Service
+          </span>
+          <span class="gb-step-lbl" id="sl-3">
+            <span class="gb-step-dot">3</span> Extras &amp; Confirm
+          </span>
         </div>
       </div>
 
+      <!-- Success -->
       <div class="gb-success" id="gb-success">
         <div class="gb-ok">✓</div>
         <h3>Request Received!</h3>
-        <p>Our manager will contact you within 15 minutes to confirm all details.</p>
+        <p>Thank you! Our manager will contact you within 15 minutes<br>to confirm all details and provide the final price.</p>
       </div>
 
-      <form id="gb-form" action="https://usebasin.com/f/c1856f1a2332" method="POST">
-        
-        
-        
+      <!-- FORM -->
+      <form id="gb-form" action="https://usebasin.com/f/20239413ec3f" method="POST" onsubmit="gbSubmit(event)">
+        <div class="gb-hp" aria-hidden="true">
+          <input type="text" name="_honeypot" tabindex="-1" autocomplete="off">
+        </div>
+        <input type="hidden" name="_gotcha" value="">
+        <input type="hidden" name="g-recaptcha-response" id="g-recaptcha-response">
 
+        <!-- ════════════════════
+             STEP 1 — Contact
+        ════════════════════ -->
         <div class="gb-steps-body">
-
-          <!-- STEP 1 -->
-          <div class="gb-step active" id="gb-step-1">
-            <p class="gb-step-title">Your Contact Info</p>
-            <p class="gb-step-sub">Let us know how to reach you.</p>
-            <div class="gb-grid2">
-              <div class="gb-field">
-                <label for="gb-name">Full Name <span class="req">*</span></label>
-                <input type="text" id="gb-name" name="name" placeholder="Jane Smith" required="" autocomplete="name">
-              </div>
-              <div class="gb-field">
-                <label for="gb-phone">Phone Number <span class="req">*</span></label>
-                <input type="tel" id="gb-phone" name="phone" placeholder="(310) 000-0000" required="" autocomplete="tel">
-              </div>
-              <div class="gb-field">
-                <label for="gb-email">Email Address <span class="req">*</span></label>
-                <input type="email" id="gb-email" name="email" placeholder="jane@email.com" required="" autocomplete="email">
-              </div>
+        <div class="gb-step active" id="gb-step-1">
+          <p class="gb-step-title">Your Contact Info</p>
+          <p class="gb-step-sub">Let us know how to reach you.</p>
+          <div class="gb-grid2">
+            <div class="gb-field">
+              <label for="gb-name">Full Name <span class="req">*</span></label>
+              <input type="text" id="gb-name" name="name" placeholder="Jane Smith" required="" autocomplete="name">
             </div>
-            <div class="gb-field gb-gap">
-              <label for="gb-street">Street Address <span class="req">*</span></label>
-              <div class="gb-addr-wrap">
-                <span class="gb-addr-icon">📍</span>
-                <input type="text" id="gb-street" name="address_street" placeholder="Start typing your address…" required="" autocomplete="off">
-              </div>
-              <span class="gb-hint">Google will suggest your address as you type</span>
+            <div class="gb-field">
+              <label for="gb-phone">Phone Number <span class="req">*</span></label>
+              <input type="tel" id="gb-phone" name="phone" placeholder="(310) 000-0000" required="" autocomplete="tel">
             </div>
-            <div class="gb-grid4 gb-gap">
-              <div class="gb-field">
-                <label for="gb-city">City <span class="req">*</span></label>
-                <input type="text" id="gb-city" name="address_city" placeholder="Los Angeles" required="" autocomplete="address-level2">
-              </div>
-              <div class="gb-field">
-                <label for="gb-state">State</label>
-                <input type="text" id="gb-state" name="address_state" placeholder="CA" maxlength="2" style="text-transform:uppercase" autocomplete="address-level1">
-              </div>
-              <div class="gb-field">
-                <label for="gb-zip">ZIP <span class="req">*</span></label>
-                <input type="text" id="gb-zip" name="address_zip" placeholder="90001" required="" maxlength="10" inputmode="numeric" autocomplete="postal-code">
-              </div>
-              <div class="gb-field">
-                <label for="gb-apt">Apt / Unit #</label>
-                <input type="text" id="gb-apt" name="address_apt" placeholder="Apt 4B" autocomplete="address-line2">
-              </div>
+            <div class="gb-field">
+              <label for="gb-email">Email Address <span class="req">*</span></label>
+              <input type="email" id="gb-email" name="email" placeholder="jane@email.com" required="" autocomplete="email">
             </div>
           </div>
 
-          <!-- STEP 2 -->
-          <div class="gb-step" id="gb-step-2">
-            <p class="gb-step-title">Property &amp; Service</p>
-            <p class="gb-step-sub">Tell us about your home and what you need.</p>
-
-            <div class="gb-grid2 gb-gap" style="margin-bottom:14px;">
-              <div class="gb-field">
-                <label>Preferred Date <span class="req">*</span></label>
-                <div class="gb-picker-wrap" id="gb-picker-wrap">
-                  <div class="gb-picker-trigger" id="gb-picker-trigger" onclick="gbPickerToggle()" tabindex="0" role="button">
-                    <span>📅</span>
-                    <span class="gb-picker-display" id="gb-picker-display">Select date…</span>
-                    <span class="gb-picker-arrow">▾</span>
-                  </div>
-                  <input type="hidden" name="preferred_date" id="gb-dt">
-                  <div class="gb-picker-drop" id="gb-picker-drop">
-                    <div class="gb-cal-header">
-                      <button type="button" class="gb-cal-nav" onclick="gbCalNav(-1)">‹</button>
-                      <span class="gb-cal-month" id="gb-cal-month"></span>
-                      <button type="button" class="gb-cal-nav" onclick="gbCalNav(1)">›</button>
-                    </div>
-                    <div class="gb-cal-days"><span>Su</span><span>Mo</span><span>Tu</span><span>We</span><span>Th</span><span>Fr</span><span>Sa</span></div>
-                    <div class="gb-cal-grid" id="gb-cal-grid"></div>
-                  </div>
-                </div>
-              </div>
-              <div class="gb-field">
-                <label for="gb-t-hour">Preferred Time <span class="req">*</span></label>
-                <div class="gb-sel">
-                  <select id="gb-t-hour" name="preferred_time" required="">
-                    <option value="" disabled="" selected="">Select time…</option>
-                    <option value="9:00 AM">9:00 AM</option>
-                    <option value="10:00 AM">10:00 AM</option>
-                    <option value="11:00 AM">11:00 AM</option>
-                    <option value="12:00 PM">12:00 PM</option>
-                    <option value="1:00 PM">1:00 PM</option>
-                    <option value="2:00 PM">2:00 PM</option>
-                    <option value="3:00 PM">3:00 PM</option>
-                    <option value="4:00 PM">4:00 PM</option>
-                    <option value="5:00 PM">5:00 PM</option>
-                    <option value="6:00 PM">6:00 PM</option>
-                  </select>
-                </div>
-              </div>
+          <!-- Address -->
+          <div class="gb-field gb-gap">
+            <label for="gb-street">Street Address <span class="req">*</span></label>
+            <div class="gb-addr-wrap">
+              <span class="gb-addr-icon">📍</span>
+              <input type="text" id="gb-street" name="address_street" placeholder="Start typing your address…" required="" autocomplete="off">
             </div>
+            <span class="gb-hint">Google will suggest your address as you type</span>
+          </div>
+          <div class="gb-grid4 gb-gap">
+            <div class="gb-field">
+              <label for="gb-city">City <span class="req">*</span></label>
+              <input type="text" id="gb-city" name="address_city" placeholder="Los Angeles" required="" autocomplete="address-level2">
+            </div>
+            <div class="gb-field">
+              <label for="gb-state">State</label>
+              <input type="text" id="gb-state" name="address_state" placeholder="CA" maxlength="2" style="text-transform:uppercase;" autocomplete="address-level1">
+            </div>
+            <div class="gb-field">
+              <label for="gb-zip">ZIP <span class="req">*</span></label>
+              <input type="text" id="gb-zip" name="address_zip" placeholder="90001" required="" maxlength="10" inputmode="numeric" autocomplete="postal-code">
+            </div>
+            <div class="gb-field">
+              <label for="gb-apt">Apt / Unit #</label>
+              <input type="text" id="gb-apt" name="address_apt" placeholder="Apt 4B" autocomplete="address-line2">
+            </div>
+          </div>
+        </div><!-- /step1 -->
 
-            <div class="gb-field gb-gap">
+        <!-- ════════════════════
+             STEP 2 — Property + Service
+        ════════════════════ -->
+        <div class="gb-step" id="gb-step-2">
+          <p class="gb-step-title">Property &amp; Service</p>
+          <p class="gb-step-sub">Tell us about your home and what you need.</p>
+
+          <!-- Service type + date -->
+          <div class="gb-grid2 gb-swap-mobile" style="margin-bottom:18px;">
+            <div class="gb-field gb-order-2">
               <label for="gb-type">Type of Cleaning <span class="req">*</span></label>
               <div class="gb-sel">
                 <select id="gb-type" name="cleaning_type" required="">
@@ -1217,398 +1551,622 @@
                 </select>
               </div>
             </div>
-
-            <div class="gb-grid3 gb-gap">
-              <div class="gb-field">
-                <label>Bedrooms <span class="req">*</span></label>
-                <div class="gb-stepper">
-                  <button type="button" onclick="gbStepper('bed',-1)">−</button>
-                  <span class="gb-step-val" id="bed-val">1</span>
-                  <button type="button" onclick="gbStepper('bed',1)">+</button>
-                  <input type="hidden" name="bedrooms" id="bed-input" value="1">
+            <div class="gb-field gb-order-1">
+              <label>Preferred Date &amp; Time <span class="req">*</span></label>
+              <div class="gb-picker-wrap" id="gb-picker-wrap">
+                <div class="gb-picker-trigger" id="gb-picker-trigger" onclick="gbPickerToggle()" tabindex="0" role="button">
+                  <span>📅</span>
+                  <span class="gb-picker-display" id="gb-picker-display">Select date &amp; time…</span>
+                  <span class="gb-picker-arrow">▾</span>
                 </div>
-              </div>
-              <div class="gb-field">
-                <label>Bathrooms <span class="req">*</span></label>
-                <div class="gb-stepper">
-                  <button type="button" onclick="gbStepper('bath',-1)">−</button>
-                  <span class="gb-step-val" id="bath-val">1</span>
-                  <button type="button" onclick="gbStepper('bath',1)">+</button>
-                  <input type="hidden" name="bathrooms" id="bath-input" value="1">
+                <input type="hidden" name="preferred_datetime" id="gb-dt" required="">
+                <div class="gb-picker-drop" id="gb-picker-drop">
+                  <div class="gb-cal-header">
+                    <button type="button" class="gb-cal-nav" onclick="gbCalNav(-1)">‹</button>
+                    <span class="gb-cal-month" id="gb-cal-month"></span>
+                    <button type="button" class="gb-cal-nav" onclick="gbCalNav(1)">›</button>
+                  </div>
+                  <div class="gb-cal-days">
+                    <span>Su</span><span>Mo</span><span>Tu</span><span>We</span>
+                    <span>Th</span><span>Fr</span><span>Sa</span>
+                  </div>
+                  <div class="gb-cal-grid" id="gb-cal-grid"></div>
+                  <div class="gb-time-row">
+                    <span class="gb-time-label">Time:</span>
+                    <div class="gb-sel" style="flex:1;">
+                      <select id="gb-t-hour" onchange="gbTimeChange()" style="width:100%;">
+                        <option value="09" selected="">9:00 AM</option>
+                        <option value="10">10:00 AM</option>
+                        <option value="11">11:00 AM</option>
+                        <option value="12">12:00 PM</option>
+                        <option value="13">1:00 PM</option>
+                        <option value="14">2:00 PM</option>
+                        <option value="15">3:00 PM</option>
+                        <option value="16">4:00 PM</option>
+                        <option value="17">5:00 PM</option>
+                        <option value="18">6:00 PM</option>
+                      </select>
+                    </div>
+                  </div>
+                  <button type="button" class="gb-picker-confirm" id="gb-picker-confirm" onclick="gbPickerConfirm()" disabled="">
+                    Confirm Date &amp; Time
+                  </button>
                 </div>
-              </div>
-              <div class="gb-field">
-                <label for="gb-sqft">Size (sq ft)</label>
-                <input type="text" id="gb-sqft" name="sqft" placeholder="e.g. 1200" inputmode="numeric">
-                <span class="gb-hint">Optional</span>
-              </div>
-            </div>
-
-            <div class="gb-grid2 gb-gap">
-              <div class="gb-field">
-                <label>Include Kitchen? <span class="req">*</span></label>
-                <div class="gb-yn">
-                  <label class="gb-yn-tile" id="kitch-yes"><input type="radio" name="kitchen_cleaning" value="Yes" required="" onchange="gbYN('kitch','yes')"> ✅ Yes</label>
-                  <label class="gb-yn-tile" id="kitch-no"><input type="radio" name="kitchen_cleaning" value="No" onchange="gbYN('kitch','no')"> ❌ No</label>
-                </div>
-              </div>
-              <div class="gb-field">
-                <label>Include Living Room? <span class="req">*</span></label>
-                <div class="gb-yn">
-                  <label class="gb-yn-tile" id="living-yes"><input type="radio" name="living_room_cleaning" value="Yes" required="" onchange="gbYN('living','yes')"> ✅ Yes</label>
-                  <label class="gb-yn-tile" id="living-no"><input type="radio" name="living_room_cleaning" value="No" onchange="gbYN('living','no')"> ❌ No</label>
-                </div>
-              </div>
-            </div>
-
-            <div class="gb-field gb-gap">
-              <label>Pets at Home?</label>
-              <div class="gb-tiles" style="grid-template-columns:repeat(3,1fr);">
-                <label class="gb-tile" id="pet-dogs"><input type="checkbox" name="pets_dogs" value="Yes" onchange="gbTile(this,'pet-dogs')"><span class="gb-tile-ico">🐕</span><span class="gb-tile-lbl">Dogs</span></label>
-                <label class="gb-tile" id="pet-cats"><input type="checkbox" name="pets_cats" value="Yes" onchange="gbTile(this,'pet-cats')"><span class="gb-tile-ico">🐈</span><span class="gb-tile-lbl">Cats</span></label>
-                <label class="gb-tile" id="pet-other"><input type="checkbox" name="pets_other" value="Yes" onchange="gbTile(this,'pet-other');gbShow('pet-other-wrap',this.checked)"><span class="gb-tile-ico">🐾</span><span class="gb-tile-lbl">Other</span></label>
-              </div>
-              <div id="pet-other-wrap" style="display:none;margin-top:8px;">
-                <input type="text" name="pets_other_specify" placeholder="Please specify (e.g. rabbits, birds…)">
               </div>
             </div>
           </div>
 
-          <!-- STEP 3 -->
-          <div class="gb-step" id="gb-step-3">
-            <p class="gb-step-title">Add-Ons &amp; Confirm</p>
-            <p class="gb-step-sub">Almost done! Select any extras and review your request.</p>
-            <div class="gb-tiles">
-              <label class="gb-tile" id="ao-carpet"><input type="checkbox" name="addon_carpet" value="Yes" onchange="gbTile(this,'ao-carpet')"><span class="gb-tile-ico">🧹</span><span class="gb-tile-lbl">Carpet Cleaning</span></label>
-              <label class="gb-tile" id="ao-bbq"><input type="checkbox" name="addon_bbq" value="Yes" onchange="gbTile(this,'ao-bbq')"><span class="gb-tile-ico">🔥</span><span class="gb-tile-lbl">BBQ Cleaning</span></label>
-              <label class="gb-tile" id="ao-laundry"><input type="checkbox" name="addon_laundry" value="Yes" onchange="gbTile(this,'ao-laundry')"><span class="gb-tile-ico">👕</span><span class="gb-tile-lbl">Laundry</span></label>
-              <label class="gb-tile" id="ao-organize"><input type="checkbox" name="addon_organize" value="Yes" onchange="gbTile(this,'ao-organize')"><span class="gb-tile-ico">📦</span><span class="gb-tile-lbl">Organize Space</span></label>
-              <label class="gb-tile" id="ao-garage"><input type="checkbox" name="addon_garage" value="Yes" onchange="gbTile(this,'ao-garage')"><span class="gb-tile-ico">🏠</span><span class="gb-tile-lbl">Garage Cleaning</span></label>
-              <label class="gb-tile" id="ao-walls"><input type="checkbox" name="addon_walls" value="Yes" onchange="gbTile(this,'ao-walls')"><span class="gb-tile-ico">🧱</span><span class="gb-tile-lbl">Wall Cleaning</span></label>
-              <label class="gb-tile" id="ao-sofa"><input type="checkbox" name="addon_sofa" value="Yes" onchange="gbTile(this,'ao-sofa')"><span class="gb-tile-ico">🛋️</span><span class="gb-tile-lbl">Sofa Cleaning</span></label>
-              <label class="gb-tile" id="ao-fridge"><input type="checkbox" name="addon_fridge" value="Yes" onchange="gbTile(this,'ao-fridge')"><span class="gb-tile-ico">🧊</span><span class="gb-tile-lbl">Fridge Interior</span></label>
-              <label class="gb-tile" id="ao-windows"><input type="checkbox" name="addon_windows" value="Yes" onchange="gbTile(this,'ao-windows')"><span class="gb-tile-ico">🪟</span><span class="gb-tile-lbl">Window Cleaning</span></label>
-              <label class="gb-tile" id="ao-outdoor"><input type="checkbox" name="addon_outdoor" value="Yes" onchange="gbTile(this,'ao-outdoor')"><span class="gb-tile-ico">🌿</span><span class="gb-tile-lbl">Outdoor Cleaning</span></label>
-            </div>
-
-            <div class="gb-grid2 gb-gap">
-              <div class="gb-field">
-                <label for="gb-discount">Discount Code</label>
-                <div style="position:relative;">
-                  <input type="text" id="gb-discount" name="discount_code" placeholder="Enter your discount code" autocomplete="off" style="text-transform:uppercase;padding-right:38px;" oninput="gbCheckDiscount(this)">
-                  <span id="gb-discount-icon" style="position:absolute;right:12px;top:50%;transform:translateY(-50%);font-size:16px;display:none;"></span>
-                </div>
-                <span class="gb-hint" id="gb-discount-hint">Our manager will apply it to your quote</span>
-              </div>
-              <div class="gb-field" style="grid-column:1/-1;">
-                <label>Referred by someone?</label>
-                <div class="gb-grid2">
-                  <div class="gb-field">
-                    <label for="gb-ref-name">Referral Name</label>
-                    <input type="text" id="gb-ref-name" name="referral_name" placeholder="Friend's full name">
-                  </div>
-                  <div class="gb-field">
-                    <label for="gb-ref-phone">Referral Phone</label>
-                    <input type="tel" id="gb-ref-phone" name="referral_phone" placeholder="(310) 000-0000">
-                  </div>
-                </div>
+          <!-- Rooms -->
+          <div class="gb-grid3 gb-gap">
+            <div class="gb-field">
+              <label>Bedrooms <span class="req">*</span></label>
+              <div class="gb-stepper">
+                <button type="button" onclick="gbStep('bed',-1)">−</button>
+                <span class="gb-step-val" id="bed-val">1</span>
+                <button type="button" onclick="gbStep('bed',1)">+</button>
+                <input type="hidden" name="bedrooms" id="bed-input" value="1">
               </div>
             </div>
-
-            <div class="gb-field gb-gap">
-              <label for="gb-notes">Comments / Special Requests</label>
-              <textarea id="gb-notes" name="notes" placeholder="Access instructions, areas to focus on, allergies, parking, gate code…"></textarea>
-            </div>
-
-            <div class="gb-price-note">
-              <span class="gb-pn-icon">💬</span>
-              <span class="gb-pn-text">
-                <strong>Pricing confirmed by our manager after reviewing your request.</strong><br>
-                Minimum 2 hours / $135. Final quote sent before any charge.
-              </span>
-            </div>
-
-            <div class="gb-legal">
-              <div class="gb-legal-item" id="leg-terms">
-                <input type="checkbox" id="cb-terms" name="agree_terms" value="Yes" required="" onchange="gbLegal(this,'leg-terms')">
-                <label for="cb-terms">I agree to the <a href="page1.html" target="_blank">Terms &amp; Conditions</a> of Glow &amp; Go. I understand the minimum booking is 2 hours and cancellations must be made at least 48 hours in advance.</label>
+            <div class="gb-field">
+              <label>Bathrooms <span class="req">*</span></label>
+              <div class="gb-stepper">
+                <button type="button" onclick="gbStep('bath',-1)">−</button>
+                <span class="gb-step-val" id="bath-val">1</span>
+                <button type="button" onclick="gbStep('bath',1)">+</button>
+                <input type="hidden" name="bathrooms" id="bath-input" value="1">
               </div>
-              <div class="gb-legal-item" id="leg-privacy">
-                <input type="checkbox" id="cb-privacy" name="agree_privacy" value="Yes" required="" onchange="gbLegal(this,'leg-privacy')">
-                <label for="cb-privacy">I consent to the <a href="page1.html" target="_blank">Privacy Policy</a>. My personal information will be used solely to process and confirm my booking.</label>
+            </div>
+            <div class="gb-field">
+              <label for="gb-sqft">Size (sq ft)</label>
+              <input type="text" id="gb-sqft" name="sqft" placeholder="e.g. 1200" inputmode="numeric">
+              <span class="gb-hint">Optional</span>
+            </div>
+          </div>
+
+          <!-- Kitchen / Living -->
+          <div class="gb-grid2 gb-gap">
+            <div class="gb-field">
+              <label>Include Kitchen? <span class="req">*</span></label>
+              <div class="gb-yn">
+                <label class="gb-yn-tile" id="kitch-yes">
+                  <input type="radio" name="kitchen_cleaning" value="Yes" required="" onchange="gbYN('kitch','yes')"> ✅ Yes
+                </label>
+                <label class="gb-yn-tile" id="kitch-no">
+                  <input type="radio" name="kitchen_cleaning" value="No" onchange="gbYN('kitch','no')"> ❌ No
+                </label>
+              </div>
+            </div>
+            <div class="gb-field">
+              <label>Include Living Room? <span class="req">*</span></label>
+              <div class="gb-yn">
+                <label class="gb-yn-tile" id="living-yes">
+                  <input type="radio" name="living_room_cleaning" value="Yes" required="" onchange="gbYN('living','yes')"> ✅ Yes
+                </label>
+                <label class="gb-yn-tile" id="living-no">
+                  <input type="radio" name="living_room_cleaning" value="No" onchange="gbYN('living','no')"> ❌ No
+                </label>
               </div>
             </div>
           </div>
-        </div>
 
+          <!-- Pets -->
+          <div class="gb-field gb-gap">
+            <label>Pets at Home?</label>
+            <div class="gb-tiles" style="grid-template-columns:repeat(3,1fr);">
+              <label class="gb-tile" id="pet-dogs">
+                <input type="checkbox" name="pets_dogs" value="Yes" onchange="gbTile(this,'pet-dogs')">
+                <span class="gb-tile-ico">🐕</span><span class="gb-tile-lbl">Dogs</span>
+              </label>
+              <label class="gb-tile" id="pet-cats">
+                <input type="checkbox" name="pets_cats" value="Yes" onchange="gbTile(this,'pet-cats')">
+                <span class="gb-tile-ico">🐈</span><span class="gb-tile-lbl">Cats</span>
+              </label>
+              <label class="gb-tile" id="pet-other">
+                <input type="checkbox" name="pets_other" value="Yes" onchange="gbTile(this,'pet-other');gbShow('pet-other-wrap',this.checked)">
+                <span class="gb-tile-ico">🐾</span><span class="gb-tile-lbl">Other</span>
+              </label>
+            </div>
+            <div id="pet-other-wrap" style="display:none;margin-top:8px;">
+              <input type="text" name="pets_other_specify" placeholder="Please specify (e.g. rabbits, birds…)">
+            </div>
+          </div>
+
+        </div><!-- /step2 -->
+
+        <!-- ════════════════════
+             STEP 3 — Extras + Confirm
+        ════════════════════ -->
+        <div class="gb-step" id="gb-step-3">
+          <p class="gb-step-title">Add-Ons &amp; Confirm</p>
+          <p class="gb-step-sub">Almost done! Select any extras and review your request.</p>
+
+          <!-- Add-ons -->
+          <div class="gb-tiles">
+            <label class="gb-tile" id="ao-carpet">
+              <input type="checkbox" name="addon_carpet" value="Yes" onchange="gbTile(this,'ao-carpet')">
+              <span class="gb-tile-ico">🧹</span><span class="gb-tile-lbl">Carpet Cleaning</span>
+            </label>
+            <label class="gb-tile" id="ao-bbq">
+              <input type="checkbox" name="addon_bbq" value="Yes" onchange="gbTile(this,'ao-bbq')">
+              <span class="gb-tile-ico">🔥</span><span class="gb-tile-lbl">Barbecue Cleaning</span>
+            </label>
+            <label class="gb-tile" id="ao-laundry">
+              <input type="checkbox" name="addon_laundry" value="Yes" onchange="gbTile(this,'ao-laundry')">
+              <span class="gb-tile-ico">👕</span><span class="gb-tile-lbl">Laundry</span>
+            </label>
+            <label class="gb-tile" id="ao-organize">
+              <input type="checkbox" name="addon_organize" value="Yes" onchange="gbTile(this,'ao-organize')">
+              <span class="gb-tile-ico">📦</span><span class="gb-tile-lbl">Organize the Space</span>
+            </label>
+            <label class="gb-tile" id="ao-garage">
+              <input type="checkbox" name="addon_garage" value="Yes" onchange="gbTile(this,'ao-garage')">
+              <span class="gb-tile-ico">🏠</span><span class="gb-tile-lbl">Garage Cleaning</span>
+            </label>
+            <label class="gb-tile" id="ao-walls">
+              <input type="checkbox" name="addon_walls" value="Yes" onchange="gbTile(this,'ao-walls')">
+              <span class="gb-tile-ico">🧱</span><span class="gb-tile-lbl">Wall Cleaning</span>
+            </label>
+            <label class="gb-tile" id="ao-sofa">
+              <input type="checkbox" name="addon_sofa" value="Yes" onchange="gbTile(this,'ao-sofa')">
+              <span class="gb-tile-ico">🛋️</span><span class="gb-tile-lbl">Sofa Cleaning</span>
+            </label>
+            <label class="gb-tile" id="ao-fridge">
+              <input type="checkbox" name="addon_fridge" value="Yes" onchange="gbTile(this,'ao-fridge')">
+              <span class="gb-tile-ico">🧊</span><span class="gb-tile-lbl">Fridge Interior</span>
+            </label>
+            <label class="gb-tile" id="ao-windows">
+              <input type="checkbox" name="addon_windows" value="Yes" onchange="gbTile(this,'ao-windows')">
+              <span class="gb-tile-ico">🪟</span><span class="gb-tile-lbl">Window Cleaning</span>
+            </label>
+            <label class="gb-tile" id="ao-outdoor">
+              <input type="checkbox" name="addon_outdoor" value="Yes" onchange="gbTile(this,'ao-outdoor')">
+              <span class="gb-tile-ico">🌿</span><span class="gb-tile-lbl">Outdoor Cleaning</span>
+            </label>
+          </div>
+
+          <!-- Referral & Discount -->
+          <div class="gb-grid2 gb-gap">
+            <div class="gb-field">
+              <label for="gb-discount">Discount Code</label>
+              <div style="position:relative;">
+                <input type="text" id="gb-discount" name="discount_code" placeholder="e.g. SAVECLEAN777" autocomplete="off" style="text-transform:uppercase; padding-right:38px;" oninput="gbCheckDiscount(this)">
+                <span id="gb-discount-icon" style="position:absolute;right:12px;top:50%;transform:translateY(-50%);font-size:16px;display:none;"></span>
+              </div>
+              <span class="gb-hint" id="gb-discount-hint">Our manager will apply it to your quote</span>
+            </div>
+            <div class="gb-field" style="grid-column:1/-1;">
+              <label>Referred by someone?</label>
+              <div class="gb-grid2">
+                <div class="gb-field">
+                  <label for="gb-ref-name">Referral Name</label>
+                  <input type="text" id="gb-ref-name" name="referral_name" placeholder="Friend's full name">
+                </div>
+                <div class="gb-field">
+                  <label for="gb-ref-phone">Referral Phone</label>
+                  <input type="tel" id="gb-ref-phone" name="referral_phone" placeholder="(310) 000-0000">
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Notes -->
+          <div class="gb-field gb-gap">
+            <label for="gb-notes">Comments / Special Requests</label>
+            <textarea id="gb-notes" name="notes" placeholder="Access instructions, areas to focus on, allergies, parking, gate code…"></textarea>
+          </div>
+
+          <!-- Price note -->
+          <div class="gb-price-note">
+            <span class="gb-pn-icon">💬</span>
+            <span class="gb-pn-text">
+              <strong>Pricing confirmed by our manager after reviewing your request.</strong><br>
+              Minimum 2 hours / $135. Final quote sent before any charge.
+            </span>
+          </div>
+
+          <!-- Legal -->
+          <div class="gb-legal">
+            <div class="gb-legal-item" id="leg-terms">
+              <input type="checkbox" id="cb-terms" name="agree_terms" value="Yes" required="" onchange="gbLegal(this,'leg-terms')">
+              <label for="cb-terms">
+                I agree to the <a href="page1.html" target="_blank">Terms &amp; Conditions</a> of Glow &amp; Go. I understand the minimum booking is 2 hours and cancellations must be made at least 48 hours in advance.
+              </label>
+            </div>
+            <div class="gb-legal-item" id="leg-privacy">
+              <input type="checkbox" id="cb-privacy" name="agree_privacy" value="Yes" required="" onchange="gbLegal(this,'leg-privacy')">
+              <label for="cb-privacy">
+                I consent to the <a href="page1.html" target="_blank">Privacy Policy</a>. My personal information will be used solely to process and confirm my booking.
+              </label>
+            </div>
+          </div>
+        </div><!-- /step3 -->
+        </div><!-- /steps-body -->
+
+        <!-- Nav buttons -->
         <div class="gb-nav">
-          <button type="button" class="gb-btn-back hidden" id="gb-btn-back" onclick="gbBack()">← Back</button>
-          <button type="button" class="gb-btn-next" id="gb-btn-next" onclick="gbNext()">Continue →</button>
+          <button type="button" class="gb-btn-back hidden" id="gb-btn-back" onclick="gbBack()">
+            ← Back
+          </button>
+          <button type="button" class="gb-btn-next" id="gb-btn-next" onclick="gbNext()">
+            Continue →
+          </button>
         </div>
+
       </form>
-    </div>
+    </div><!-- /card -->
   </div>
 </div>
 
-<!-- THANK YOU POPUP -->
-<div id="gg-popup-overlay" style="display:none;position:fixed;inset:0;z-index:99999;background:rgba(10,20,40,.6);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);align-items:center;justify-content:center;padding:20px;">
-  <div style="background:#fff;border-radius:24px;border:0.5px solid #e2ecf3;box-shadow:0 24px 80px rgba(23,185,232,.12),0 4px 16px rgba(0,0,0,.06);padding:40px 36px 32px;max-width:400px;width:100%;text-align:center;position:relative;font-family:'Inter Tight','Segoe UI',sans-serif;animation:ggPopIn .4s cubic-bezier(.34,1.56,.64,1);">
-    <button onclick="ggClosePopup()" style="position:absolute;top:16px;right:16px;width:30px;height:30px;background:#f4f8fb;border:0.5px solid #e2ecf3;border-radius:50%;cursor:pointer;font-size:13px;color:#6b7f96;display:flex;align-items:center;justify-content:center;line-height:1;">✕</button>
-    <p style="font-size:20px;font-weight:500;color:#17b9e8;margin:0 0 16px;">Glow &amp; Go</p>
-    <div style="font-size:22px;margin:0 0 20px;line-height:1;">🧹✨</div>
-    <p style="font-size:22px;font-weight:700;color:#1a2533;margin:0 0 4px;line-height:1.3;">Thank you for</p>
-    <p style="font-size:22px;font-weight:700;color:#17b9e8;margin:0 0 22px;line-height:1.3;">choosing us!</p>
-    <div style="width:40px;height:1px;background:#e2ecf3;margin:0 auto 20px;"></div>
-    <p style="font-size:13.5px;color:#6b7f96;line-height:1.75;margin:0 0 24px;">Your request is received — our manager will call you back <strong style="color:#1a2533;font-weight:600;">shortly</strong> to confirm all details.</p>
-    <div style="display:inline-flex;align-items:center;gap:7px;background:#e8f8fd;border:1.5px solid #17b9e8;border-radius:100px;padding:8px 20px;margin-bottom:24px;font-size:12.5px;font-weight:500;color:#0fa3d0;">🏠 A clean home is a happy home</div>
-    <button onclick="ggClosePopup()" style="display:block;width:100%;padding:13px;background:#17b9e8;color:#fff;font-family:'Inter Tight','Segoe UI',sans-serif;font-size:13.5px;font-weight:600;border:none;border-radius:100px;cursor:pointer;box-shadow:0 4px 16px rgba(23,185,232,.35);transition:background .18s;" onmouseover="this.style.background='#0fa3d0'" onmouseout="this.style.background='#17b9e8'">Got it, thank you!</button>
+<!-- POPUP -->
+<div id="gg-popup-overlay">
+  <div id="gg-popup">
+    <button class="gg-pop-close" onclick="ggClosePopup()" aria-label="Close">✕</button>
+    <span class="gg-pop-sparkles">✨</span>
+    <div class="gg-pop-logo">Glow &amp; Go</div>
+    <div class="gg-pop-divider"></div>
+    <h2>Thank You for <span>Choosing Us!</span></h2>
+    <p>
+      We're truly grateful you've trusted <strong>Glow &amp; Go</strong> as a helper in your home.<br><br>
+      Your request has been received — our manager will reach out <strong>within 15 minutes</strong> to confirm all details and provide your final quote.
+    </p>
+    <div class="gg-pop-badge">🏠 &nbsp;A clean home is a happy home</div>
+    <button class="gg-pop-btn" onclick="ggClosePopup()">👆 &nbsp;Got it, thank you!</button>
   </div>
 </div>
 
 <!-- ERROR POPUP -->
 <div id="gg-error-overlay" style="display:none;position:fixed;inset:0;z-index:99999;background:rgba(10,30,50,.55);backdrop-filter:blur(4px);align-items:center;justify-content:center;padding:20px;">
-  <div style="background:#fff;border-radius:20px;border:1.5px solid #d9e6ef;padding:40px 32px 32px;max-width:400px;width:100%;text-align:center;font-family:'Inter Tight','Segoe UI',sans-serif;">
+  <div style="background:#fff;border-radius:20px;border:1.5px solid #d9e6ef;box-shadow:0 6px 32px rgba(23,185,232,.14);padding:40px 32px 32px;max-width:400px;width:100%;text-align:center;position:relative;animation:ggPopIn .3s cubic-bezier(.34,1.56,.64,1);font-family:'Inter Tight','Segoe UI',sans-serif;">
     <span style="font-size:40px;display:block;margin-bottom:14px;">⚠️</span>
     <h3 style="font-size:20px;font-weight:800;color:#1a2533;margin:0 0 10px;">Something went wrong</h3>
-    <p style="font-size:13.5px;color:#6b7f96;line-height:1.6;margin:0 0 24px;">Please try again or call us directly.</p>
-    <button onclick="ggCloseErrorPopup()" style="width:100%;padding:13px;background:#17b9e8;color:#fff;font-family:'Inter Tight','Segoe UI',sans-serif;font-size:14px;font-weight:800;border:none;border-radius:100px;cursor:pointer;">Try Again</button>
+    <p style="font-size:13.5px;color:#6b7f96;line-height:1.6;margin:0 0 24px;">We couldn't send your request. Please try again or contact us directly by phone.</p>
+    <button onclick="ggCloseErrorPopup()" style="width:100%;padding:13px;background:#17b9e8;color:#fff;font-family:'Inter Tight','Segoe UI',sans-serif;font-size:14px;font-weight:800;border:none;border-radius:100px;cursor:pointer;box-shadow:0 4px 16px rgba(23,185,232,.35);transition:background .18s;" onmouseover="this.style.background='#0fa3d0'" onmouseout="this.style.background='#17b9e8'">
+      Try Again
+    </button>
   </div>
 </div>
 
-<style>
-@keyframes ggPopIn { from{opacity:0;transform:scale(.88) translateY(20px)} to{opacity:1;transform:scale(1) translateY(0)} }
-</style>
-
 <script>
-var gbCurrentStep=1,gbTotalSteps=3;
-var gbStepVals={bed:1,bath:1};
-var gbPickerState={open:false,selectedDate:null,viewYear:null,viewMonth:null};
-var GB_MONTHS=['January','February','March','April','May','June','July','August','September','October','November','December'];
-var GB_STEP_NAMES=['','Contact Info','Property & Service','Extras & Confirm'];
+/* ════════════════════════════════
+   MULTI-STEP LOGIC
+════════════════════════════════ */
+var gbCurrentStep = 1;
+var gbTotalSteps  = 3;
+var gbLoadTime    = Date.now();
 
-function gbUpdateProgress(step){
-  var pct=(step/gbTotalSteps*100).toFixed(1);
-  document.getElementById('gb-prog-fill').style.width=pct+'%';
-  document.getElementById('gb-prog-label').textContent='Step '+step+' of '+gbTotalSteps;
-  document.getElementById('gb-prog-name').textContent=GB_STEP_NAMES[step];
-  for(var i=1;i<=gbTotalSteps;i++){
-    var el=document.getElementById('sl-'+i);
+var GB_STEP_NAMES = ['', 'Contact Info', 'Property & Service', 'Extras & Confirm'];
+
+function gbUpdateProgress(step) {
+  var pct = (step / gbTotalSteps * 100).toFixed(1);
+  document.getElementById('gb-prog-fill').style.width  = pct + '%';
+  document.getElementById('gb-prog-label').textContent = 'Step ' + step + ' of ' + gbTotalSteps;
+  document.getElementById('gb-prog-name').textContent  = GB_STEP_NAMES[step];
+
+  for (var i = 1; i <= gbTotalSteps; i++) {
+    var el = document.getElementById('sl-' + i);
     el.classList.remove('active','done');
-    if(i<step)el.classList.add('done');
-    if(i===step)el.classList.add('active');
-    var dot=el.querySelector('.gb-step-dot');
-    dot.textContent=(i<step)?'✓':i;
+    if (i < step)  el.classList.add('done');
+    if (i === step) el.classList.add('active');
+    // tick icon for done steps
+    var dot = el.querySelector('.gb-step-dot');
+    if (i < step)  dot.textContent = '✓';
+    if (i >= step) dot.textContent = i;
   }
-  document.getElementById('gb-btn-back').classList.toggle('hidden',step===1);
-  document.getElementById('gb-btn-next').textContent=step===gbTotalSteps?'👆  Send Booking Request':'Continue →';
+
+  // Back button
+  var back = document.getElementById('gb-btn-back');
+  back.classList.toggle('hidden', step === 1);
+
+  // Next button label
+  var next = document.getElementById('gb-btn-next');
+  next.textContent = step === gbTotalSteps ? '👆  Send Booking Request' : 'Continue →';
 }
 
-function gbValidateStep(step){
-  var fields=document.querySelectorAll('#gb-step-'+step+' [required]');
-  var ok=true;
-  fields.forEach(function(f){
-    if(!f.value.trim()){f.classList.add('invalid');ok=false;}
-    else f.classList.remove('invalid');
+function gbValidateStep(step) {
+  var sel = '#gb-step-' + step + ' [required]';
+  var fields = document.querySelectorAll(sel);
+  var ok = true;
+  fields.forEach(function(f) {
+    if (!f.value.trim()) {
+      f.classList.add('invalid');
+      ok = false;
+      if (ok === false && f.scrollIntoView) {}
+    } else {
+      f.classList.remove('invalid');
+    }
   });
-  if(!ok){var first=document.querySelector('#gb-step-'+step+' .invalid');if(first)first.scrollIntoView({behavior:'smooth',block:'center'});}
+  if (!ok) {
+    var first = document.querySelector('#gb-step-' + step + ' .invalid');
+    if (first) first.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
   return ok;
 }
 
-function gbNext(){
-  if(!gbValidateStep(gbCurrentStep))return;
-  if(gbCurrentStep===2&&!document.getElementById('gb-dt').value){
-    var t=document.getElementById('gb-picker-trigger');
-    if(t){t.style.borderColor='#e53e3e';t.scrollIntoView({behavior:'smooth',block:'center'});}
+function gbNext() {
+  if (!gbValidateStep(gbCurrentStep)) return;
+
+  // Step 3 = submit
+  if (gbCurrentStep === gbTotalSteps) {
+    // Check legal
+    if (!document.getElementById('cb-terms').checked || !document.getElementById('cb-privacy').checked) {
+      document.getElementById('leg-terms').scrollIntoView({ behavior: 'smooth', block: 'center' });
+      return;
+    }
+    gbDoSubmit();
     return;
   }
-  if(gbCurrentStep===gbTotalSteps){
-    if(!document.getElementById('cb-terms').checked||!document.getElementById('cb-privacy').checked){
-      document.getElementById('leg-terms').scrollIntoView({behavior:'smooth',block:'center'});return;
-    }
-    gbDoSubmit();return;
-  }
-  document.getElementById('gb-step-'+gbCurrentStep).classList.remove('active');
+
+  var cur = document.getElementById('gb-step-' + gbCurrentStep);
+  cur.classList.remove('active');
+
   gbCurrentStep++;
-  document.getElementById('gb-step-'+gbCurrentStep).classList.add('active');
+  var next = document.getElementById('gb-step-' + gbCurrentStep);
+  next.classList.add('active');
+  next.classList.remove('back');
+
   gbUpdateProgress(gbCurrentStep);
-  document.getElementById('gg-book').scrollIntoView({behavior:'smooth',block:'start'});
+  document.getElementById('gg-book').scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
-function gbBack(){
-  document.getElementById('gb-step-'+gbCurrentStep).classList.remove('active');
+function gbBack() {
+  var cur = document.getElementById('gb-step-' + gbCurrentStep);
+  cur.classList.remove('active');
+  cur.classList.add('back');
+  setTimeout(function(){ cur.classList.remove('back'); }, 350);
+
   gbCurrentStep--;
-  document.getElementById('gb-step-'+gbCurrentStep).classList.add('active');
+  var prev = document.getElementById('gb-step-' + gbCurrentStep);
+  prev.classList.add('active');
+
   gbUpdateProgress(gbCurrentStep);
-  document.getElementById('gg-book').scrollIntoView({behavior:'smooth',block:'start'});
+  document.getElementById('gg-book').scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
-function gbDoSubmit(){
-  var btn=document.getElementById('gb-btn-next');
-  btn.disabled=true; btn.textContent='Sending…';
-  if(typeof grecaptcha!=='undefined'){
-    grecaptcha.ready(function(){
-      grecaptcha.execute('6Lde76AsAAAAAFFoaIrXfT1VwzkbKhBgbX7hCcb',{action:'booking'}).then(function(token){
-        document.getElementById('g-recaptcha-response').value=token;
+/* ════════════════════════════════
+   SUBMIT
+════════════════════════════════ */
+function gbDoSubmit() {
+  if (document.querySelector('#gb-form [name="_honeypot"]').value !== '') return;
+  if (Date.now() - gbLoadTime < 3000) return;
+  // reCAPTCHA v3
+  if (typeof grecaptcha !== 'undefined') {
+    grecaptcha.ready(function() {
+      grecaptcha.execute('6Lde76AsAAAAAFFoaIrXfT1VwzkbKhBgbX7hCcb', {action:'booking'}).then(function(token) {
+        document.getElementById('g-recaptcha-response').value = token;
         gbSend();
-      }).catch(function(){gbSend();});
+      });
     });
-  } else {gbSend();}
+  } else {
+    gbSend();
+  }
+}
+function gbSend() {
+
+  var btn = document.getElementById('gb-btn-next');
+  btn.disabled = true;
+  btn.textContent = 'Sending…';
+
+  var form = document.getElementById('gb-form');
+  fetch(form.action, {
+    method: 'POST',
+    body: new FormData(form),
+    headers: { 'Accept': 'application/json' }
+  })
+  .then(function(r) {
+    if (r.ok || r.status === 302) {
+      // Hide all steps + progress
+      document.querySelector('.gb-progress').style.display = 'none';
+      document.querySelector('.gb-steps-body').style.display = 'none';
+      document.querySelector('.gb-nav').style.display = 'none';
+      document.getElementById('gb-success').style.display = 'block';
+      ggShowPopup();
+    } else {
+      btn.disabled = false;
+      btn.textContent = '👆  Send Booking Request';
+      ggShowErrorPopup();
+    }
+  })
+  .catch(function() { form.submit(); });
 }
 
-function gbSend(){
-  var btn=document.getElementById('gb-btn-next');
-  var form=document.getElementById('gb-form');
-  fetch('https://usebasin.com/f/c1856f1a2332',{
-    method:'POST',
-    body:new FormData(form),
-    headers:{'Accept':'application/json'}
-  }).then(function(r){
-    btn.disabled=false; btn.textContent='👆  Send Booking Request';
-    document.querySelector('#gg-book .gb-progress').style.display='none';
-    document.querySelector('#gg-book .gb-steps-body').style.display='none';
-    document.querySelector('#gg-book .gb-nav').style.display='none';
-    document.getElementById('gb-success').style.display='block';
-    var ol=document.getElementById('gg-popup-overlay');
-    ol.style.display='flex'; ol.style.alignItems='center'; ol.style.justifyContent='center';
-    document.body.style.overflow='hidden';
-  }).catch(function(){
-    btn.disabled=false; btn.textContent='👆  Send Booking Request';
-    form.action='https://usebasin.com/f/c1856f1a2332';
-    form.method='POST'; form.submit();
-  });
+function gbSubmit(e) { e.preventDefault(); }
+
+/* ════════════════════════════════
+   STEPPER
+════════════════════════════════ */
+var gbStepVals = { bed:1, bath:1 };
+function gbStep(key, dir) {
+  var min = key==='bed'?0:1, max = key==='bed'?10:8;
+  var v = Math.min(max, Math.max(min, gbStepVals[key]+dir));
+  gbStepVals[key] = v;
+  var label = (key==='bed' && v===0) ? 'Studio' : v;
+  document.getElementById(key+'-val').textContent = label;
+  document.getElementById(key+'-input').value = label;
 }
 
-function gbStepper(key,dir){
-  var min=key==='bed'?0:1,max=key==='bed'?10:8;
-  var v=Math.min(max,Math.max(min,gbStepVals[key]+dir));
-  gbStepVals[key]=v;
-  document.getElementById(key+'-val').textContent=(key==='bed'&&v===0)?'Studio':v;
-  document.getElementById(key+'-input').value=(key==='bed'&&v===0)?'Studio':v;
+/* ════════════════════════════════
+   TILES / RADIO
+════════════════════════════════ */
+function gbTile(cb, id) { document.getElementById(id).classList.toggle('on', cb.checked); }
+function gbYN(prefix, val) {
+  document.getElementById(prefix+'-yes').classList.toggle('on', val==='yes');
+  document.getElementById(prefix+'-no').classList.toggle('on',  val==='no');
 }
+function gbShow(id, show) { document.getElementById(id).style.display = show?'block':'none'; }
+function gbLegal(cb, id) { document.getElementById(id).classList.toggle('on', cb.checked); }
 
-function gbTile(cb,id){document.getElementById(id).classList.toggle('on',cb.checked);}
-function gbYN(prefix,val){
-  document.getElementById(prefix+'-yes').classList.toggle('on',val==='yes');
-  document.getElementById(prefix+'-no').classList.toggle('on',val==='no');
-}
-function gbShow(id,show){document.getElementById(id).style.display=show?'block':'none';}
-function gbLegal(cb,id){document.getElementById(id).classList.toggle('on',cb.checked);}
+/* ════════════════════════════════
+   DATE PICKER
+════════════════════════════════ */
+var gbPickerState = { open:false, selectedDate:null, viewYear:null, viewMonth:null };
+var GB_MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
 
-function gbPickerInit(){
-  var now=new Date();
-  gbPickerState.viewYear=now.getFullYear();
-  gbPickerState.viewMonth=now.getMonth();
+function gbPickerInit() {
+  var now = new Date();
+  gbPickerState.viewYear  = now.getFullYear();
+  gbPickerState.viewMonth = now.getMonth();
   gbCalRender();
 }
-function gbPickerToggle(){
-  gbPickerState.open=!gbPickerState.open;
-  document.getElementById('gb-picker-drop').classList.toggle('open',gbPickerState.open);
-  document.getElementById('gb-picker-trigger').classList.toggle('open',gbPickerState.open);
-  if(gbPickerState.open)gbCalRender();
+function gbPickerToggle() {
+  gbPickerState.open = !gbPickerState.open;
+  document.getElementById('gb-picker-drop').classList.toggle('open', gbPickerState.open);
+  document.getElementById('gb-picker-trigger').classList.toggle('open', gbPickerState.open);
+  if (gbPickerState.open) gbCalRender();
 }
-function gbPickerClose(){
-  gbPickerState.open=false;
+function gbPickerClose() {
+  gbPickerState.open = false;
   document.getElementById('gb-picker-drop').classList.remove('open');
   document.getElementById('gb-picker-trigger').classList.remove('open');
 }
-function gbCalNav(dir){
-  gbPickerState.viewMonth+=dir;
-  if(gbPickerState.viewMonth>11){gbPickerState.viewMonth=0;gbPickerState.viewYear++;}
-  if(gbPickerState.viewMonth<0){gbPickerState.viewMonth=11;gbPickerState.viewYear--;}
+function gbCalNav(dir) {
+  gbPickerState.viewMonth += dir;
+  if (gbPickerState.viewMonth>11){gbPickerState.viewMonth=0; gbPickerState.viewYear++;}
+  if (gbPickerState.viewMonth<0) {gbPickerState.viewMonth=11;gbPickerState.viewYear--;}
   gbCalRender();
 }
-function gbCalRender(){
-  var y=gbPickerState.viewYear,m=gbPickerState.viewMonth;
-  document.getElementById('gb-cal-month').textContent=GB_MONTHS[m]+' '+y;
-  var today=new Date();today.setHours(0,0,0,0);
-  var first=new Date(y,m,1).getDay(),days=new Date(y,m+1,0).getDate(),html='';
-  for(var i=0;i<first;i++)html+='<span class="gc-day empty"></span>';
+function gbCalRender() {
+  var y=gbPickerState.viewYear, m=gbPickerState.viewMonth;
+  document.getElementById('gb-cal-month').textContent = GB_MONTHS[m]+' '+y;
+  var today=new Date(); today.setHours(0,0,0,0);
+  var first=new Date(y,m,1).getDay();
+  var days=new Date(y,m+1,0).getDate();
+  var html='';
+  for(var i=0;i<first;i++) html+='<span class="gc-day empty"></span>';
   for(var d=1;d<=days;d++){
-    var date=new Date(y,m,d);date.setHours(0,0,0,0);
+    var date=new Date(y,m,d); date.setHours(0,0,0,0);
     var cls='gc-day';
-    if(date<today)cls+=' disabled';
-    if(date.getTime()===today.getTime())cls+=' today';
+    if(date<today) cls+=' disabled';
+    if(date.getTime()===today.getTime()) cls+=' today';
     if(gbPickerState.selectedDate){
-      var sel=new Date(gbPickerState.selectedDate);sel.setHours(0,0,0,0);
-      if(date.getTime()===sel.getTime())cls+=' selected';
+      var sel=new Date(gbPickerState.selectedDate); sel.setHours(0,0,0,0);
+      if(date.getTime()===sel.getTime()) cls+=' selected';
     }
     html+='<span class="'+cls+'" onclick="gbCalSelect('+y+','+m+','+d+')">'+d+'</span>';
   }
   document.getElementById('gb-cal-grid').innerHTML=html;
+  document.getElementById('gb-picker-confirm').disabled=!gbPickerState.selectedDate;
 }
 function gbCalSelect(y,m,d){
   gbPickerState.selectedDate=new Date(y,m,d);
-  var wdays=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
-  var date=new Date(y,m,d);
-  var display=wdays[date.getDay()]+', '+GB_MONTHS[m]+' '+d+', '+y;
-  var mm=String(m+1).padStart(2,'0'),dd=String(d).padStart(2,'0');
+  gbPickerState.viewYear=y;
+  gbPickerState.viewMonth=m;
+  gbCalRender();
+  // Enable confirm button
+  document.getElementById('gb-picker-confirm').disabled=false;
+}
+function gbTimeChange(){ document.getElementById('gb-picker-confirm').disabled=!gbPickerState.selectedDate; }
+function gbPickerConfirm(){
+  if(!gbPickerState.selectedDate) return;
+  var d=gbPickerState.selectedDate;
+  var hour=document.getElementById('gb-t-hour').value;
+  var h=parseInt(hour), ampm=h>=12?'PM':'AM', h12=h>12?h-12:(h===0?12:h);
+  var days=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+  var display=days[d.getDay()]+', '+GB_MONTHS[d.getMonth()]+' '+d.getDate()+', '+d.getFullYear()+' at '+h12+':00 '+ampm;
+  var mm=String(d.getMonth()+1).padStart(2,'0'), dd=String(d.getDate()).padStart(2,'0');
   document.getElementById('gb-picker-display').textContent=display;
-  document.getElementById('gb-picker-trigger').style.borderColor='';
-  document.getElementById('gb-dt').value=y+'-'+mm+'-'+dd;
+  document.getElementById('gb-dt').value=d.getFullYear()+'-'+mm+'-'+dd+'T'+hour+':00';
   document.getElementById('gb-picker-trigger').classList.add('filled');
   gbPickerClose();
-  gbCalRender();
 }
+document.addEventListener('click',function(e){
+  var wrap=document.getElementById('gb-picker-wrap');
+  if(wrap && !wrap.contains(e.target)) gbPickerClose();
+});
 
+/* ════════════════════════════════
+   GOOGLE AUTOCOMPLETE
+════════════════════════════════ */
 function gbInitAutocomplete(){
   var input=document.getElementById('gb-street');
-  if(!input||typeof google==='undefined')return;
-  var ac=new google.maps.places.Autocomplete(input,{componentRestrictions:{country:'us'},fields:['address_components'],types:['address']});
+  if(!input||typeof google==='undefined') return;
+  var ac=new google.maps.places.Autocomplete(input,{
+    componentRestrictions:{country:'us'}, fields:['address_components'], types:['address']
+  });
   ac.addListener('place_changed',function(){
     var place=ac.getPlace();
-    if(!place.address_components)return;
+    if(!place.address_components) return;
     var sn='',rt='',city='',state='',zip='';
     place.address_components.forEach(function(c){
       var t=c.types;
-      if(t.includes('street_number'))sn=c.long_name;
-      if(t.includes('route'))rt=c.long_name;
-      if(t.includes('locality'))city=c.long_name;
-      if(t.includes('sublocality_level_1')&&!city)city=c.long_name;
-      if(t.includes('administrative_area_level_1'))state=c.short_name;
-      if(t.includes('postal_code'))zip=c.long_name;
+      if(t.includes('street_number'))              sn=c.long_name;
+      if(t.includes('route'))                       rt=c.long_name;
+      if(t.includes('locality'))                    city=c.long_name;
+      if(t.includes('sublocality_level_1')&&!city)  city=c.long_name;
+      if(t.includes('administrative_area_level_1')) state=c.short_name;
+      if(t.includes('postal_code'))                 zip=c.long_name;
     });
     input.value=(sn+' '+rt).trim();
-    if(city)document.getElementById('gb-city').value=city;
-    if(state)document.getElementById('gb-state').value=state;
-    if(zip)document.getElementById('gb-zip').value=zip;
+    if(city)  document.getElementById('gb-city').value=city;
+    if(state) document.getElementById('gb-state').value=state;
+    if(zip)   document.getElementById('gb-zip').value=zip;
     document.getElementById('gb-apt').focus();
   });
 }
 
+/* ════════════════════════════════
+   POPUP
+════════════════════════════════ */
+function ggShowPopup(){
+  document.getElementById('gg-popup-overlay').classList.add('open');
+  document.body.style.overflow='hidden';
+}
 function ggClosePopup(){
-  document.getElementById('gg-popup-overlay').style.display='none';
+  document.getElementById('gg-popup-overlay').classList.remove('open');
   document.body.style.overflow='';
 }
-function ggCloseErrorPopup(){
-  document.getElementById('gg-error-overlay').style.display='none';
+document.getElementById('gg-popup-overlay').addEventListener('click',function(e){
+  if(e.target===this) ggClosePopup();
+});
+document.addEventListener('keydown',function(e){ if(e.key==='Escape') ggClosePopup(); });
+
+/* ════════════════════════════════
+   INIT
+════════════════════════════════ */
+gbUpdateProgress(1);
+if(document.readyState==='loading'){
+  document.addEventListener('DOMContentLoaded', gbPickerInit);
+} else {
+  gbPickerInit();
 }
 
-var GB_VALID_CODES=['SAVECLEAN777'];
-function gbCheckDiscount(input){
-  var val=input.value.trim().toUpperCase();
-  var icon=document.getElementById('gb-discount-icon');
-  var hint=document.getElementById('gb-discount-hint');
+/* ── Discount code validation ── */
+var GB_VALID_CODES = ['SAVECLEAN777'];
+function gbCheckDiscount(input) {
+  var val = input.value.trim().toUpperCase();
+  var icon  = document.getElementById('gb-discount-icon');
+  var hint  = document.getElementById('gb-discount-hint');
   input.classList.remove('valid','invalid-code');
-  icon.style.display='none';
-  if(val===''){hint.textContent='Our manager will apply it to your quote';hint.className='gb-hint';return;}
-  icon.style.display='block';
-  if(GB_VALID_CODES.includes(val)){
-    input.classList.add('valid');icon.textContent='✅';
-    hint.textContent='Discount code applied!';hint.className='gb-hint success';
+  icon.style.display = 'none';
+  if (val === '') {
+    hint.textContent = 'Our manager will apply it to your quote';
+    hint.className = 'gb-hint';
+    return;
+  }
+  icon.style.display = 'block';
+  if (GB_VALID_CODES.includes(val)) {
+    input.classList.add('valid');
+    icon.textContent = '✅';
+    hint.textContent = 'Discount code applied! ';
+    hint.className = 'gb-hint success';
   } else {
-    input.classList.add('invalid-code');icon.textContent='❌';
-    hint.textContent='Invalid code. Please check and try again.';hint.className='gb-hint error';
+    input.classList.add('invalid-code');
+    icon.textContent = '❌';
+    hint.textContent = 'Invalid code. Please check and try again.';
+    hint.className = 'gb-hint error';
   }
 }
 
-document.addEventListener('click',function(e){
-  var wrap=document.getElementById('gb-picker-wrap');
-  if(wrap&&!wrap.contains(e.target))gbPickerClose();
-});
 
-gbUpdateProgress(1);
-if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',gbPickerInit);}
-else{gbPickerInit();}
+function ggShowErrorPopup() {
+  var el = document.getElementById('gg-error-overlay');
+  el.style.display = 'flex';
+  el.style.alignItems = 'center';
+  el.style.justifyContent = 'center';
+}
+function ggCloseErrorPopup() {
+  document.getElementById('gg-error-overlay').style.display = 'none';
+}
+
 </script></div>
 
 <div id="discount"><!-- =====================================================
