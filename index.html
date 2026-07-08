@@ -1,0 +1,1043 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#1D9E75">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="G&G CRM">
+<link rel="manifest" href="manifest.json">
+<title>Glow &amp; Go CRM</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.x/tabler-icons.min.css">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+:root{
+  --green:#1D9E75;--green-lt:#E1F5EE;--green-dk:#0F6E56;
+  --red:#A32D2D;--red-lt:#FCEBEB;
+  --blue:#185FA5;--blue-lt:#E6F1FB;
+  --amber:#BA7517;--amber-lt:#FAEEDA;
+  --purple:#534AB7;--purple-lt:#EEEDFE;
+  --text:#1a1a1a;--text2:#666;--text3:#aaa;
+  --border:#e0e0e0;--bg:#fff;--bg2:#f7f7f5;--bg3:#f0ede8;
+  --r:10px;--rl:14px;--sidebar:200px;
+}
+@media(prefers-color-scheme:dark){
+  :root{--text:#f0f0ee;--text2:#aaa;--text3:#555;--border:#2a2a2a;--bg:#111;--bg2:#1a1a1a;--bg3:#222}
+  .b-pending{background:#3d2a00!important;color:#FAC775!important}
+  .b-confirmed{background:#003d27!important;color:#5DCAA5!important}
+  .b-done{background:#001e3d!important;color:#85B7EB!important}
+  .b-cancelled{background:#3d0000!important;color:#F09595!important}
+  .b-pending-pay{background:#1a1a3d!important;color:#AFA9EC!important}
+  .b-paid-out{background:#003d27!important;color:#5DCAA5!important}
+}
+html,body{height:100%;background:var(--bg3);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:var(--text)}
+.layout{display:flex;min-height:100vh}
+.sidebar{width:var(--sidebar);background:var(--bg);border-right:1px solid var(--border);display:flex;flex-direction:column;position:fixed;top:0;left:0;height:100vh;z-index:40;overflow-y:auto}
+.sb-logo{display:flex;align-items:center;gap:9px;padding:18px 14px 14px;border-bottom:1px solid var(--border)}
+.sb-icon{width:32px;height:32px;border-radius:8px;background:var(--green);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.sb-icon i{font-size:17px;color:#fff}
+.sb-title{font-size:14px;font-weight:600;color:var(--text)}
+.sb-sub{font-size:11px;color:var(--text3)}
+.sb-nav{padding:10px 8px;display:flex;flex-direction:column;gap:2px}
+.ni{display:flex;align-items:center;gap:8px;padding:8px 10px;border-radius:var(--r);font-size:13px;cursor:pointer;color:var(--text2);border:none;background:none;width:100%;text-align:left;transition:all .12s}
+.ni:hover{background:var(--bg2);color:var(--text)}
+.ni.active{background:var(--green-lt);color:var(--green-dk);font-weight:500}
+.ni i{font-size:17px;flex-shrink:0}
+.main{margin-left:var(--sidebar);flex:1}
+.topbar{background:var(--bg);border-bottom:1px solid var(--border);padding:13px 24px;display:flex;align-items:center;gap:10px;position:sticky;top:0;z-index:30}
+.tb-title{font-size:16px;font-weight:500;flex:1;color:var(--text)}
+.page{padding:22px 24px;display:none}
+.page.active{display:block}
+.btn{background:transparent;border:1px solid var(--border);border-radius:var(--r);padding:7px 14px;font-size:13px;cursor:pointer;color:var(--text);display:inline-flex;align-items:center;gap:5px;transition:all .12s}
+.btn:hover{background:var(--bg2)}
+.btn-g{background:var(--green);border-color:transparent;color:#fff}
+.btn-g:hover{background:var(--green-dk)}
+.btn-sm{padding:5px 11px;font-size:12px}
+.btn-del{background:var(--red-lt);border-color:transparent;color:var(--red)}
+.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-bottom:20px}
+.stat{background:var(--bg);border-radius:var(--rl);padding:14px 16px;border:1px solid var(--border)}
+.sl{font-size:11px;color:var(--text3);margin-bottom:4px}
+.sv{font-size:22px;font-weight:500;color:var(--text)}
+.sv.g{color:var(--green)}.sv.r{color:var(--red)}.sv.p{color:var(--purple)}
+.filters{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
+.fb{background:var(--bg);border:1px solid var(--border);border-radius:20px;padding:4px 13px;font-size:12px;color:var(--text2);cursor:pointer;transition:all .12s}
+.fb.active{background:var(--green-lt);border-color:var(--green);color:var(--green-dk);font-weight:500}
+.tbl{background:var(--bg);border:1px solid var(--border);border-radius:var(--rl);overflow:hidden}
+.thead{border-bottom:1px solid var(--border);background:var(--bg2)}
+.th{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.05em;color:var(--text3);padding:9px 12px;white-space:nowrap}
+.trow{border-bottom:1px solid var(--border);cursor:pointer;transition:background .1s;align-items:center}
+.trow:last-child{border-bottom:none}
+.trow:hover{background:var(--bg2)}
+.td{padding:11px 12px;font-size:13px;color:var(--text);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.td.dim{color:var(--text2);font-size:12px}
+.td.num{color:var(--text3);font-size:12px}
+.jn{font-size:13px;font-weight:500}
+.js{font-size:11px;color:var(--text2);margin-top:1px}
+.sdot{display:inline-block;width:7px;height:7px;border-radius:50%;margin-right:4px;vertical-align:middle}
+.badge{display:inline-block;padding:2px 9px;border-radius:20px;font-size:11px;font-weight:500;white-space:nowrap}
+.b-pending{background:#FAEEDA;color:#854F0B}
+.b-confirmed{background:#E1F5EE;color:#0F6E56}
+.b-done{background:#E6F1FB;color:#185FA5}
+.b-cancelled{background:#FCEBEB;color:#A32D2D}
+.b-pending-pay{background:#EEEDFE;color:#534AB7}
+.b-paid-out{background:#E1F5EE;color:#0F6E56}
+.empty{text-align:center;padding:2.5rem;color:var(--text3);font-size:13px}
+.empty i{font-size:32px;display:block;margin-bottom:8px;opacity:.3}
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:100;display:none;align-items:flex-start;justify-content:center;padding:40px 16px;overflow-y:auto}
+.overlay.open{display:flex}
+.modal{background:var(--bg);border-radius:var(--rl);width:100%;max-width:660px;border:1px solid var(--border);margin:auto}
+.mh{display:flex;align-items:center;justify-content:space-between;padding:16px 20px;border-bottom:1px solid var(--border)}
+.mh h2{font-size:16px;font-weight:500}
+.xbtn{background:var(--bg2);border:none;border-radius:50%;width:28px;height:28px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--text2);font-size:17px}
+.fb-body{padding:18px 20px}
+.sl2{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--text3);margin:16px 0 9px;padding-top:16px;border-top:1px solid var(--border)}
+.sl2:first-child{margin-top:0;padding-top:0;border-top:none}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
+.field{display:flex;flex-direction:column;gap:4px}
+.field label{font-size:12px;font-weight:500;color:var(--text2)}
+.field input,.field select,.field textarea{width:100%;border:1px solid var(--border);border-radius:var(--r);padding:8px 10px;font-size:13px;background:var(--bg);color:var(--text)}
+.field select{-webkit-appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='11' height='7'%3E%3Cpath d='M1 1l4.5 4.5L10 1' stroke='%23aaa' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 9px center;padding-right:28px}
+.field textarea{resize:none;min-height:60px}
+.mf{display:flex;align-items:center;gap:8px;padding:14px 20px;border-top:1px solid var(--border)}
+.profit-box{background:var(--green-lt);border-radius:var(--r);padding:12px 14px;margin-top:10px}
+.pb-title{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.05em;color:var(--green-dk);margin-bottom:7px}
+.pr{display:flex;justify-content:space-between;font-size:13px;margin-bottom:3px;color:var(--green-dk)}
+.pr.tot{font-size:14px;font-weight:600;margin-top:5px;padding-top:5px;border-top:1px solid rgba(0,0,0,.1)}
+.owner-banner{background:var(--green);border-radius:var(--rl);padding:16px 18px;color:#fff;display:flex;align-items:center;gap:14px;margin-bottom:16px}
+.ow-av{width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;font-size:19px;font-weight:500;color:#fff;flex-shrink:0}
+.ow-name{font-size:15px;font-weight:500}
+.ow-sub{font-size:12px;opacity:.8}
+.cg{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px}
+.cc{background:var(--bg);border:1px solid var(--border);border-radius:var(--rl);padding:16px}
+.cc-h{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.cc-av{width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:500;flex-shrink:0}
+.cc-name{font-size:14px;font-weight:500}
+.cc-role{font-size:11px;color:var(--text3)}
+.rates{display:flex;flex-direction:column;gap:4px;margin-bottom:12px}
+.rr{display:flex;justify-content:space-between;font-size:12px}
+.rr span:first-child{color:var(--text2)}
+.rr span:last-child{font-weight:500}
+.cc-stats{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding-top:10px;border-top:1px solid var(--border);margin-bottom:10px}
+.ccs{text-align:center}
+.ccs-v{font-size:16px;font-weight:500}
+.ccs-l{font-size:11px;color:var(--text3)}
+.cal-wrap{background:var(--bg);border:1px solid var(--border);border-radius:var(--rl);overflow:hidden;margin-bottom:20px}
+.cal-nav{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;border-bottom:1px solid var(--border)}
+.cal-nav span{font-size:15px;font-weight:500}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);border-bottom:1px solid var(--border)}
+.cal-dh{text-align:center;font-size:11px;font-weight:600;color:var(--text3);padding:8px 4px;text-transform:uppercase}
+.cal-day{min-height:80px;border-right:1px solid var(--border);border-top:1px solid var(--border);padding:6px;position:relative;vertical-align:top}
+.cal-day:nth-child(7n){border-right:none}
+.cal-day.other-month .cal-dn{color:var(--text3)}
+.cal-day.today{background:var(--green-lt)}
+.cal-dn{font-size:12px;font-weight:500;color:var(--text);margin-bottom:3px}
+.cal-event{border-radius:4px;padding:2px 5px;font-size:10px;margin-bottom:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;cursor:pointer}
+.ce-job{background:#E6F1FB;color:#185FA5}
+.ce-pay{background:#E1F5EE;color:#0F6E56}
+.monthly-summary{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px}
+.ms-card{background:var(--bg);border:1px solid var(--border);border-radius:var(--rl);padding:16px}
+.ms-month{font-size:15px;font-weight:500;margin-bottom:12px;padding-bottom:10px;border-bottom:1px solid var(--border)}
+.ms-row{display:flex;justify-content:space-between;font-size:13px;margin-bottom:6px}
+.ms-row span:first-child{color:var(--text2)}
+.ms-total{display:flex;justify-content:space-between;font-size:15px;font-weight:600;margin-top:8px;padding-top:8px;border-top:1px solid var(--border)}
+.payout-row{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;border-bottom:1px solid var(--border);font-size:13px}
+.payout-row:last-child{border-bottom:none}
+.toast{position:fixed;bottom:20px;right:20px;background:#222;color:#fff;padding:10px 16px;border-radius:var(--r);font-size:13px;z-index:200;opacity:0;transition:opacity .2s;pointer-events:none}
+.toast.show{opacity:1}
+@media(max-width:768px){
+  .sidebar{display:none}.main{margin-left:0}.page{padding:14px}
+  .stats{grid-template-columns:repeat(2,1fr);gap:8px}
+  .g2,.g3{grid-template-columns:1fr}
+  .bottomnav{display:flex}
+  .modal{max-width:100%;margin:0;border-radius:20px 20px 0 0;position:fixed;bottom:0;left:0;right:0}
+  .overlay{padding:0;align-items:flex-end}
+}
+@media(min-width:769px){.bottomnav{display:none}}
+.bottomnav{position:fixed;bottom:0;left:0;right:0;background:var(--bg);border-top:1px solid var(--border);display:none;z-index:40}
+.mn{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;padding:9px 0;cursor:pointer;color:var(--text3);background:none;border:none;font-size:10px}
+.mn.active{color:var(--green)}
+.mn i{font-size:20px}
+
+.pw-screen{position:fixed;inset:0;background:var(--bg3);display:flex;align-items:center;justify-content:center;z-index:9999}
+.pw-card{background:var(--bg);border:1px solid var(--border);border-radius:var(--rl);padding:36px 32px;width:100%;max-width:360px;text-align:center}
+.pw-logo{width:52px;height:52px;border-radius:14px;background:var(--green);display:flex;align-items:center;justify-content:center;margin:0 auto 16px}
+.pw-logo i{font-size:26px;color:#fff}
+.pw-title{font-size:20px;font-weight:600;margin-bottom:4px}
+.pw-sub{font-size:13px;color:var(--text2);margin-bottom:24px}
+.pw-input{width:100%;border:1px solid var(--border);border-radius:var(--r);padding:11px 14px;font-size:15px;background:var(--bg);color:var(--text);text-align:center;letter-spacing:2px;margin-bottom:10px}
+.pw-input:focus{outline:none;border-color:var(--green)}
+.pw-btn{width:100%;background:var(--green);border:none;border-radius:var(--r);padding:12px;font-size:15px;font-weight:500;color:#fff;cursor:pointer;margin-bottom:8px}
+.pw-btn:hover{background:var(--green-dk)}
+.pw-err{color:var(--red);font-size:13px;min-height:18px}
+</style>
+</head>
+<body>
+<div class="pw-screen" id="pw-screen">
+  <div class="pw-card">
+    <div class="pw-logo"><i class="ti ti-sparkles"></i></div>
+    <div class="pw-title">Glow &amp; Go CRM</div>
+    <div class="pw-sub">Enter password to continue</div>
+    <input class="pw-input" id="pw-input" type="password" placeholder="••••••••" onkeydown="if(event.key==='Enter')checkPw()">
+    <button class="pw-btn" onclick="checkPw()">Enter</button>
+    <div class="pw-err" id="pw-err"></div>
+  </div>
+</div>
+
+<div class="layout">
+  <aside class="sidebar">
+    <div class="sb-logo">
+      <div class="sb-icon"><i class="ti ti-sparkles"></i></div>
+      <div><div class="sb-title">Glow &amp; Go</div><div class="sb-sub">CRM</div></div>
+    </div>
+    <nav class="sb-nav">
+      <button class="ni active" onclick="setPage('jobs',this)"><i class="ti ti-list-check"></i> Jobs</button>
+      <button class="ni" onclick="setPage('clients',this)"><i class="ti ti-address-book"></i> Clients</button>
+      <button class="ni" onclick="setPage('cleaners',this)"><i class="ti ti-users"></i> Cleaners</button>
+      <button class="ni" onclick="setPage('calendar',this)"><i class="ti ti-calendar"></i> Calendar</button>
+      <button class="ni" onclick="setPage('profit',this)"><i class="ti ti-chart-bar"></i> Profit</button>
+      <button class="ni" onclick="setPage('expenses',this)"><i class="ti ti-receipt"></i> Expenses</button>
+    </nav>
+  </aside>
+
+  <div class="main">
+    <!-- JOBS -->
+    <div class="page active" id="page-jobs">
+      <div class="topbar"><span class="tb-title">Jobs</span><button class="btn btn-g" onclick="openNewJob()"><i class="ti ti-plus"></i> New job</button></div>
+      <div style="padding:22px 24px">
+        <div class="stats" id="stats-jobs"></div>
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:14px;flex-wrap:wrap">
+          <div id="jobs-month-nav" style="display:flex;align-items:center;gap:8px">
+            <button class="btn btn-sm" onclick="jobsMonthPrev()"><i class="ti ti-chevron-left"></i></button>
+            <span id="jobs-month-label" style="font-size:14px;font-weight:500;min-width:120px;text-align:center"></span>
+            <button class="btn btn-sm" onclick="jobsMonthNext()"><i class="ti ti-chevron-right"></i></button>
+            <button class="btn btn-sm" onclick="jobsMonthToday()">This month</button>
+          </div>
+          <button class="fb" id="jobs-alltime-btn" onclick="toggleJobsAllTime()" style="margin-left:auto">All time</button>
+        </div>
+        <div class="filters" id="job-filters">
+          <button class="fb active" onclick="setFilter('all',this)">All</button>
+          <button class="fb" onclick="setFilter('pending',this)">Pending</button>
+          <button class="fb" onclick="setFilter('confirmed',this)">Confirmed</button>
+          <button class="fb" onclick="setFilter('done',this)">Done</button>
+          <button class="fb" onclick="setFilter('cancelled',this)">Cancelled</button>
+        </div>
+        <div class="tbl">
+          <div class="thead" style="display:grid;grid-template-columns:36px 1.8fr 1fr 0.9fr 0.7fr 0.6fr 0.5fr 0.9fr">
+            <div class="th">#</div><div class="th">Client / Service</div><div class="th">Source</div>
+            <div class="th">Cleaner</div><div class="th">Date</div><div class="th">Price</div>
+            <div class="th">Paid</div><div class="th">Status</div>
+          </div>
+          <div id="jobs-list"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CLIENTS -->
+    <div class="page" id="page-clients">
+      <div class="topbar"><span class="tb-title">Clients</span></div>
+      <div style="padding:22px 24px">
+        <div class="stats" id="stats-clients"></div>
+        <div class="filters" id="clients-filters">
+          <button class="fb active" onclick="setClientsView('all',this)">All clients</button>
+          <button class="fb" onclick="setClientsView('repeat',this)">Repeat clients</button>
+        </div>
+        <div class="tbl">
+          <div class="thead" style="display:grid;grid-template-columns:1.6fr 1fr 1fr 0.6fr 0.9fr 0.9fr">
+            <div class="th">Client</div><div class="th">Phone</div><div class="th">Source</div>
+            <div class="th">Jobs</div><div class="th">Total spent</div><div class="th">Last job</div>
+          </div>
+          <div id="clients-list"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CLEANERS -->
+    <div class="page" id="page-cleaners">
+      <div class="topbar"><span class="tb-title">Cleaners</span><button class="btn btn-g" onclick="openNewCleaner()"><i class="ti ti-plus"></i> Add cleaner</button></div>
+      <div style="padding:22px 24px">
+        <div class="owner-banner">
+          <div class="ow-av">A</div>
+          <div><div class="ow-name">Alexandra (You)</div><div class="ow-sub">Owner — takes 100% of job revenue</div></div>
+        </div>
+        <div class="cg" id="cleaners-grid"></div>
+      </div>
+    </div>
+
+    <!-- CALENDAR -->
+    <div class="page" id="page-calendar">
+      <div class="topbar">
+        <span class="tb-title">Calendar</span>
+        <div style="display:flex;gap:6px">
+          <button class="btn btn-sm" onclick="calPrev()"><i class="ti ti-chevron-left"></i></button>
+          <span id="cal-label" style="font-size:14px;padding:5px 10px;font-weight:500;color:var(--text)"></span>
+          <button class="btn btn-sm" onclick="calNext()"><i class="ti ti-chevron-right"></i></button>
+          <button class="btn btn-sm" onclick="calToday()">Today</button>
+        </div>
+      </div>
+      <div style="padding:22px 24px">
+        <div style="display:flex;gap:8px;margin-bottom:12px;font-size:12px;align-items:center">
+          <span style="display:inline-flex;align-items:center;gap:4px"><span style="width:10px;height:10px;border-radius:2px;background:#E6F1FB;border:1px solid #85B7EB;display:inline-block"></span> Job</span>
+          <span style="display:inline-flex;align-items:center;gap:4px"><span style="width:10px;height:10px;border-radius:2px;background:#E1F5EE;border:1px solid #5DCAA5;display:inline-block"></span> Cleaner payout</span>
+        </div>
+        <div class="cal-wrap">
+          <div id="cal-head-days" class="cal-grid" style="min-height:0;border-bottom:1px solid var(--border)"></div>
+          <div id="cal-days" class="cal-grid"></div>
+        </div>
+        <div>
+          <div style="font-size:13px;font-weight:500;margin-bottom:10px;color:var(--text2)">Upcoming payouts this month</div>
+          <div class="tbl" id="payouts-list"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PROFIT -->
+    <div class="page" id="page-profit">
+      <div class="topbar"><span class="tb-title">Profit</span></div>
+      <div style="padding:22px 24px" id="profit-page"></div>
+    </div>
+
+    <!-- EXPENSES -->
+    <div class="page" id="page-expenses">
+      <div class="topbar"><span class="tb-title">Expenses</span><button class="btn btn-g" onclick="openNewExpense()"><i class="ti ti-plus"></i> Add expense</button></div>
+      <div style="padding:22px 24px">
+        <div class="stats" id="stats-exp"></div>
+        <div class="filters" id="exp-filters">
+          <button class="fb active" onclick="setExpFilter('all',this)">All</button>
+          <button class="fb" onclick="setExpFilter('supplies',this)">Cleaning supplies</button>
+          <button class="fb" onclick="setExpFilter('equipment',this)">Equipment</button>
+          <button class="fb" onclick="setExpFilter('transport',this)">Transport</button>
+          <button class="fb" onclick="setExpFilter('other',this)">Other</button>
+        </div>
+        <div class="tbl">
+          <div class="thead" style="display:grid;grid-template-columns:36px 1.5fr 1fr 0.8fr 0.7fr 0.6fr">
+            <div class="th">#</div><div class="th">Item</div><div class="th">Category</div>
+            <div class="th">Date</div><div class="th">Amount</div><div class="th">Receipt</div>
+          </div>
+          <div id="exp-list"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<nav class="bottomnav">
+  <button class="mn active" id="mn-jobs" onclick="setPage('jobs',this,1)"><i class="ti ti-list-check"></i><span>Jobs</span></button>
+  <button class="mn" id="mn-clients" onclick="setPage('clients',this,1)"><i class="ti ti-address-book"></i><span>Clients</span></button>
+  <button class="mn" id="mn-cleaners" onclick="setPage('cleaners',this,1)"><i class="ti ti-users"></i><span>Cleaners</span></button>
+  <button class="mn" id="mn-calendar" onclick="setPage('calendar',this,1)"><i class="ti ti-calendar"></i><span>Calendar</span></button>
+  <button class="mn" id="mn-profit" onclick="setPage('profit',this,1)"><i class="ti ti-chart-bar"></i><span>Profit</span></button>
+  <button class="mn" id="mn-expenses" onclick="setPage('expenses',this,1)"><i class="ti ti-receipt"></i><span>Expenses</span></button>
+</nav>
+
+<!-- JOB MODAL -->
+<div class="overlay" id="ov-job" onclick="if(event.target===this)closeJob()">
+  <div class="modal" onclick="event.stopPropagation()">
+    <div class="mh"><h2 id="job-title">New job</h2><button class="xbtn" onclick="closeJob()">&#10005;</button></div>
+    <div class="fb-body">
+      <div class="sl2">Client</div>
+      <div class="g3">
+        <div class="field"><label>Name *</label><input id="j-name" type="text" placeholder="Anna Smith"></div>
+        <div class="field"><label>Phone</label><input id="j-phone" type="tel" placeholder="+1 (310)…"></div>
+        <div class="field"><label>Address</label><input id="j-address" type="text" placeholder="123 Main St"></div>
+      </div>
+      <div class="sl2">Job details</div>
+      <div class="g3">
+        <div class="field"><label>Date *</label><input id="j-date" type="date"></div>
+        <div class="field"><label>Time</label><input id="j-time" type="time"></div>
+        <div class="field"><label>Service</label>
+          <select id="j-service"><option>Standard cleaning</option><option>Deep cleaning</option><option>Move-in / Move-out</option><option>Commercial</option><option>Post-construction</option><option>Other</option></select>
+        </div>
+      </div>
+      <div class="g3">
+        <div class="field"><label>Lead source</label>
+          <select id="j-lead"><option>TaskRabbit</option><option>Bazaar</option><option>Google</option><option>Flyer</option><option>Instagram</option><option>Referral</option><option>Repeat client</option><option>Other</option></select>
+        </div>
+        <div class="field"><label>Cleaner</label><select id="j-cleaner"></select></div>
+        <div class="field"><label>Equipment</label>
+          <select id="j-equip"><option>Standard kit</option><option>Deep clean kit</option><option>Eco products</option><option>Client provides</option></select>
+        </div>
+      </div>
+      <div class="sl2">Payment</div>
+      <div class="g3">
+        <div class="field"><label>Price ($)</label><input id="j-price" type="number" placeholder="180" min="0" oninput="calcPreview()"></div>
+        <div class="field"><label>Hours worked</label><input id="j-hours" type="number" placeholder="3" step="0.5" min="0" oninput="calcPreview()"></div>
+        <div class="field"><label>Method</label>
+          <select id="j-method"><option>—</option><option>Cash</option><option>Zelle</option><option>Venmo</option><option>Card</option><option>Check</option></select>
+        </div>
+      </div>
+      <div class="g2">
+        <div class="field"><label>Payment received</label><select id="j-paid"><option value="no">No</option><option value="yes">Yes</option></select></div>
+        <div class="field"><label>Review requested</label><select id="j-review"><option value="no">No</option><option value="yes">Yes</option></select></div>
+      </div>
+      <div id="j-preview"></div>
+      <div class="sl2">Status &amp; Notes</div>
+      <div class="g2">
+        <div class="field"><label>Status</label>
+          <select id="j-status"><option value="pending">Pending</option><option value="confirmed">Confirmed</option><option value="done">Done</option><option value="cancelled">Cancelled</option></select>
+        </div>
+        <div class="field"><label>Cleaner payout</label>
+          <select id="j-payout-status"><option value="pending">Pending payout</option><option value="paid">Paid out</option></select>
+        </div>
+      </div>
+      <div class="field" style="margin-top:10px"><label>Notes</label><textarea id="j-notes" placeholder="Access code, instructions…"></textarea></div>
+    </div>
+    <div class="mf">
+      <button class="btn btn-del btn-sm" id="j-del" style="display:none" onclick="deleteJob()"><i class="ti ti-trash"></i> Delete</button>
+      <span style="flex:1"></span>
+      <button class="btn btn-sm" onclick="closeJob()">Cancel</button>
+      <button class="btn btn-g btn-sm" onclick="saveJob()"><i class="ti ti-check"></i> Save</button>
+    </div>
+  </div>
+</div>
+
+<!-- CLEANER MODAL -->
+<div class="overlay" id="ov-cleaner" onclick="if(event.target===this)closeCleaner()">
+  <div class="modal" onclick="event.stopPropagation()" style="max-width:440px">
+    <div class="mh"><h2 id="cl-title">Add cleaner</h2><button class="xbtn" onclick="closeCleaner()">&#10005;</button></div>
+    <div class="fb-body">
+      <div class="g2">
+        <div class="field"><label>Name *</label><input id="cl-name" type="text" placeholder="Maria"></div>
+        <div class="field"><label>Color</label>
+          <select id="cl-color"><option value="#378ADD">Blue</option><option value="#1D9E75">Green</option><option value="#D85A30">Orange</option><option value="#7F77DD">Purple</option><option value="#D4537E">Pink</option><option value="#BA7517">Amber</option></select>
+        </div>
+      </div>
+      <div class="sl2">Hourly rates</div>
+      <div class="g3">
+        <div class="field"><label>Trainee ($/hr)</label><input id="cl-r1" type="number" placeholder="20" min="0"></div>
+        <div class="field"><label>Mid ($/hr)</label><input id="cl-r2" type="number" placeholder="25" min="0"></div>
+        <div class="field"><label>Senior ($/hr)</label><input id="cl-r3" type="number" placeholder="30" min="0"></div>
+      </div>
+      <div class="field" style="margin-top:10px"><label>Current level</label>
+        <select id="cl-level"><option value="r1">Trainee</option><option value="r2">Mid</option><option value="r3">Senior</option></select>
+      </div>
+      <div class="field" style="margin-top:10px"><label>Payout schedule</label>
+        <select id="cl-schedule"><option value="tuesday">Every Tuesday</option><option value="sameday">Same day as job</option><option value="manual">Manual</option></select>
+      </div>
+    </div>
+    <div class="mf">
+      <button class="btn btn-del btn-sm" id="cl-del" style="display:none" onclick="deleteCleaner()"><i class="ti ti-trash"></i> Delete</button>
+      <span style="flex:1"></span>
+      <button class="btn btn-sm" onclick="closeCleaner()">Cancel</button>
+      <button class="btn btn-g btn-sm" onclick="saveCleaner()"><i class="ti ti-check"></i> Save</button>
+    </div>
+  </div>
+</div>
+
+<!-- EXPENSE MODAL -->
+<div class="overlay" id="ov-expense" onclick="if(event.target===this)closeExpense()">
+  <div class="modal" onclick="event.stopPropagation()" style="max-width:480px">
+    <div class="mh"><h2 id="ex-title">Add expense</h2><button class="xbtn" onclick="closeExpense()">&#10005;</button></div>
+    <div class="fb-body">
+      <div class="g2">
+        <div class="field"><label>Item name *</label><input id="ex-name" type="text" placeholder="Mop heads x5"></div>
+        <div class="field"><label>Category</label>
+          <select id="ex-cat"><option value="supplies">Cleaning supplies</option><option value="equipment">Equipment</option><option value="transport">Transport</option><option value="other">Other</option></select>
+        </div>
+      </div>
+      <div class="g2" style="margin-top:10px">
+        <div class="field"><label>Amount ($) *</label><input id="ex-amount" type="number" placeholder="45" min="0" step="0.01"></div>
+        <div class="field"><label>Date *</label><input id="ex-date" type="date"></div>
+      </div>
+      <div class="g2" style="margin-top:10px">
+        <div class="field"><label>Store / Supplier</label><input id="ex-store" type="text" placeholder="Home Depot, Amazon…"></div>
+        <div class="field"><label>Receipt #</label><input id="ex-receipt" type="text" placeholder="Optional"></div>
+      </div>
+      <div class="field" style="margin-top:10px"><label>Notes</label><input id="ex-notes" type="text" placeholder="Optional"></div>
+    </div>
+    <div class="mf">
+      <button class="btn btn-del btn-sm" id="ex-del" style="display:none" onclick="deleteExpense()"><i class="ti ti-trash"></i> Delete</button>
+      <span style="flex:1"></span>
+      <button class="btn btn-sm" onclick="closeExpense()">Cancel</button>
+      <button class="btn btn-g btn-sm" onclick="saveExpense()"><i class="ti ti-check"></i> Save</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const SRC_COLOR={'TaskRabbit':'#378ADD','Bazaar':'#D85A30','Google':'#1D9E75','Flyer':'#D4537E','Instagram':'#7F77DD','Referral':'#BA7517','Repeat client':'#0F6E56','Other':'#888780'};
+const SL={'pending':'Pending','confirmed':'Confirmed','done':'Done','cancelled':'Cancelled'};
+const LL={'r1':'Trainee','r2':'Mid','r3':'Senior'};
+const EXP_CAT={'supplies':'Cleaning supplies','equipment':'Equipment','transport':'Transport','other':'Other'};
+const EXP_COL={'supplies':'#1D9E75','equipment':'#185FA5','transport':'#BA7517','other':'#888780'};
+const MONTHS=['January','February','March','April','May','June','July','August','September','October','November','December'];
+
+let jobs=[], cleaners=[], expenses=[];
+let editJobId=null, editCleanerId=null, editExpId=null;
+let jobFilter='all', expFilter='all';
+let calYear=new Date().getFullYear(), calMonth=new Date().getMonth();
+let jobsYear=new Date().getFullYear(), jobsMonth=new Date().getMonth(), jobsShowAll=false;
+let clientsView='all';
+
+function load(){
+  try{jobs=JSON.parse(localStorage.getItem('gg_jobs_v3')||'[]');}catch(e){jobs=[];}
+  try{cleaners=JSON.parse(localStorage.getItem('gg_cleaners_v1')||'[]');}catch(e){cleaners=[];}
+  try{expenses=JSON.parse(localStorage.getItem('gg_exp_v1')||'[]');}catch(e){expenses=[];}
+}
+function saveJ(){localStorage.setItem('gg_jobs_v3',JSON.stringify(jobs));}
+function saveC(){localStorage.setItem('gg_cleaners_v1',JSON.stringify(cleaners));}
+function saveE(){localStorage.setItem('gg_exp_v1',JSON.stringify(expenses));}
+
+function toast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2200);}
+
+function setPage(p,el,mob){
+  document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));
+  document.getElementById('page-'+p).classList.add('active');
+  document.querySelectorAll('.ni,.mn').forEach(x=>x.classList.remove('active'));
+  if(el)el.classList.add('active');
+  if(p==='profit')renderProfit();
+  if(p==='clients')renderClients();
+  if(p==='cleaners')renderCleaners();
+  if(p==='expenses')renderExpenses();
+  if(p==='calendar')renderCalendar();
+}
+
+function setFilter(f,el){
+  jobFilter=f;
+  document.querySelectorAll('#job-filters .fb').forEach(b=>b.classList.remove('active'));
+  el.classList.add('active');
+  renderJobs();
+}
+function setExpFilter(f,el){
+  expFilter=f;
+  document.querySelectorAll('#exp-filters .fb').forEach(b=>b.classList.remove('active'));
+  el.classList.add('active');
+  renderExpenses();
+}
+
+function cleanerRate(id,hours){
+  if(!id)return 0;
+  const c=cleaners.find(x=>x.id===id);
+  if(!c)return 0;
+  return (parseFloat(c[c.level])||0)*(parseFloat(hours)||0);
+}
+function cleanerName(id){
+  if(!id)return 'Owner (me)';
+  const c=cleaners.find(x=>x.id===id);
+  return c?c.name:'Unknown';
+}
+
+function jobsInPeriod(){
+  if(jobsShowAll)return jobs;
+  return jobs.filter(j=>{
+    if(!j.date)return false;
+    const d=new Date(j.date+'T00:00:00');
+    return d.getFullYear()===jobsYear&&d.getMonth()===jobsMonth;
+  });
+}
+function expensesInPeriod(){
+  if(jobsShowAll)return expenses;
+  return expenses.filter(e=>{
+    if(!e.date)return false;
+    const d=new Date(e.date+'T00:00:00');
+    return d.getFullYear()===jobsYear&&d.getMonth()===jobsMonth;
+  });
+}
+function updateJobsMonthLabel(){
+  const el=document.getElementById('jobs-month-label');
+  if(el)el.textContent=MONTHS[jobsMonth]+' '+jobsYear;
+}
+function jobsMonthPrev(){jobsMonth--;if(jobsMonth<0){jobsMonth=11;jobsYear--;}updateJobsMonthLabel();renderJobs();}
+function jobsMonthNext(){jobsMonth++;if(jobsMonth>11){jobsMonth=0;jobsYear++;}updateJobsMonthLabel();renderJobs();}
+function jobsMonthToday(){const n=new Date();jobsYear=n.getFullYear();jobsMonth=n.getMonth();updateJobsMonthLabel();renderJobs();}
+function toggleJobsAllTime(){
+  jobsShowAll=!jobsShowAll;
+  document.getElementById('jobs-alltime-btn').classList.toggle('active',jobsShowAll);
+  document.getElementById('jobs-month-nav').style.display=jobsShowAll?'none':'flex';
+  renderJobs();
+}
+
+function renderJobStats(list){
+  list=list||jobsInPeriod();
+  const expList=expensesInPeriod();
+  const rev=list.filter(j=>j.paid==='yes').reduce((s,j)=>s+(parseFloat(j.price)||0),0);
+  const expTotal=expList.reduce((s,e)=>s+(parseFloat(e.amount)||0),0);
+  const cleanerCosts=list.filter(j=>j.paid==='yes').reduce((s,j)=>s+cleanerRate(j.cleaner,j.hours),0);
+  const net=rev-cleanerCosts-expTotal;
+  document.getElementById('stats-jobs').innerHTML=
+    stat('Total jobs',list.length)+
+    stat('Revenue collected','$'+Math.round(rev).toLocaleString(),'g')+
+    stat('Expenses','$'+Math.round(expTotal).toLocaleString(),'r')+
+    stat('Net profit','$'+Math.round(net).toLocaleString(),'p');
+}
+function stat(l,v,c=''){return `<div class="stat"><div class="sl">${l}</div><div class="sv ${c}">${v}</div></div>`;}
+
+function renderJobs(){
+  const period=jobsInPeriod();
+  renderJobStats(period);
+  const el=document.getElementById('jobs-list');
+  let list=[...period].sort((a,b)=>(a.date+a.time)<(b.date+b.time)?-1:1);
+  if(jobFilter!=='all')list=list.filter(j=>j.status===jobFilter);
+  if(!list.length){el.innerHTML=`<div class="empty"><i class="ti ti-calendar-off"></i>${period.length?'No jobs with this status':(jobsShowAll?'No jobs yet':'No jobs this month')}</div>`;return;}
+  const cols='36px 1.8fr 1fr 0.9fr 0.7fr 0.6fr 0.5fr 0.9fr';
+  el.innerHTML=list.map((j,i)=>`
+    <div class="trow" style="display:grid;grid-template-columns:${cols}" onclick="openEditJob('${j.id}')">
+      <div class="td num">${i+1}</div>
+      <div class="td"><div class="jn">${esc(j.name)}</div><div class="js">${esc(j.service)}</div></div>
+      <div class="td dim"><span class="sdot" style="background:${SRC_COLOR[j.lead]||'#888'}"></span>${esc(j.lead)}</div>
+      <div class="td dim">${esc(cleanerName(j.cleaner))}</div>
+      <div class="td dim">${j.date}</div>
+      <div class="td">${j.price?'$'+j.price:'—'}</div>
+      <div class="td ${j.paid==='yes'?'':'dim'}" style="${j.paid==='yes'?'color:var(--green);font-weight:500':''}">${j.paid==='yes'?'✓':'-'}</div>
+      <div class="td"><span class="badge b-${j.status}">${SL[j.status]||j.status}</span></div>
+    </div>`).join('');
+}
+
+// CLIENTS
+function clientKey(j){
+  const phone=(j.phone||'').replace(/\D/g,'');
+  if(phone)return 'p:'+phone;
+  return 'n:'+(j.name||'').trim().toLowerCase();
+}
+function computeClients(){
+  const map={};
+  jobs.forEach(j=>{
+    if(!j.name)return;
+    const key=clientKey(j);
+    if(!map[key])map[key]={name:j.name,phone:j.phone,address:j.address,lead:j.lead,count:0,revenue:0,firstDate:j.date||'',lastDate:j.date||''};
+    const c=map[key];
+    c.count++;
+    if(j.paid==='yes')c.revenue+=parseFloat(j.price)||0;
+    if(j.date&&(!c.lastDate||j.date>=c.lastDate)){c.lastDate=j.date;c.name=j.name;c.phone=j.phone||c.phone;c.address=j.address||c.address;c.lead=j.lead||c.lead;}
+    if(j.date&&(!c.firstDate||j.date<c.firstDate))c.firstDate=j.date;
+  });
+  return Object.values(map);
+}
+function setClientsView(v,el){
+  clientsView=v;
+  document.querySelectorAll('#clients-filters .fb').forEach(b=>b.classList.remove('active'));
+  el.classList.add('active');
+  renderClients();
+}
+function renderClients(){
+  const all=computeClients();
+  const repeat=all.filter(c=>c.count>=2);
+  document.getElementById('stats-clients').innerHTML=
+    stat('Total clients',all.length)+
+    stat('Repeat clients',repeat.length,'g')+
+    stat('Repeat rate',all.length?Math.round(repeat.length/all.length*100)+'%':'0%')+
+    stat('Total revenue','$'+Math.round(all.reduce((s,c)=>s+c.revenue,0)).toLocaleString(),'p');
+  let list=(clientsView==='repeat'?repeat:all).sort((a,b)=>b.count-a.count||(a.lastDate<b.lastDate?1:-1));
+  const el=document.getElementById('clients-list');
+  if(!list.length){el.innerHTML=`<div class="empty"><i class="ti ti-address-book-off"></i>${clientsView==='repeat'?'No repeat clients yet':'No clients yet'}</div>`;return;}
+  const cols='1.6fr 1fr 1fr 0.6fr 0.9fr 0.9fr';
+  el.innerHTML=list.map(c=>`
+    <div class="trow" style="display:grid;grid-template-columns:${cols};cursor:default">
+      <div class="td"><div class="jn">${esc(c.name)}</div><div class="js">${esc(c.address||'')}</div></div>
+      <div class="td dim">${esc(c.phone||'—')}</div>
+      <div class="td dim"><span class="sdot" style="background:${SRC_COLOR[c.lead]||'#888'}"></span>${esc(c.lead||'—')}</div>
+      <div class="td">${c.count>1?`<span class="badge b-confirmed">${c.count}×</span>`:c.count}</div>
+      <div class="td" style="color:var(--green);font-weight:500">$${Math.round(c.revenue).toLocaleString()}</div>
+      <div class="td dim">${c.lastDate||'—'}</div>
+    </div>`).join('');
+}
+
+function fillCleanerSelect(sel,val=''){
+  sel.innerHTML='<option value="">— Owner (me) —</option>'+
+    cleaners.map(c=>`<option value="${c.id}" ${c.id===val?'selected':''}>${esc(c.name)} (${LL[c.level]}, $${c[c.level]}/hr)</option>`).join('');
+  sel.onchange=calcPreview;
+}
+
+function calcPreview(){
+  const price=parseFloat(document.getElementById('j-price').value)||0;
+  const hours=parseFloat(document.getElementById('j-hours').value)||0;
+  const cid=document.getElementById('j-cleaner').value;
+  const el=document.getElementById('j-preview');
+  if(!price){el.innerHTML='';return;}
+  const cost=cleanerRate(cid,hours);
+  const profit=price-cost;
+  el.innerHTML=`<div class="profit-box"><div class="pb-title"><i class="ti ti-calculator" style="font-size:12px"></i> Profit preview</div>
+    <div class="pr"><span>Job revenue</span><span>$${price.toFixed(2)}</span></div>
+    ${cost>0?`<div class="pr"><span>Cleaner pay (${hours}h × $${cleaners.find(x=>x.id===cid)?.[cleaners.find(x=>x.id===cid)?.level]||0})</span><span style="color:var(--red)">- $${cost.toFixed(2)}</span></div>`:''}
+    <div class="pr tot"><span>Your profit</span><span style="color:var(--green)">$${profit.toFixed(2)}</span></div>
+  </div>`;
+}
+
+function todayStr(){return new Date().toISOString().split('T')[0];}
+
+function openNewJob(){
+  editJobId=null;
+  document.getElementById('job-title').textContent='New job';
+  document.getElementById('j-del').style.display='none';
+  document.getElementById('j-date').value=todayStr();
+  document.getElementById('j-time').value='10:00';
+  ['name','phone','address','price','hours','notes'].forEach(id=>document.getElementById('j-'+id).value='');
+  ['service','lead','equip','method'].forEach(id=>document.getElementById('j-'+id).selectedIndex=0);
+  document.getElementById('j-status').value='pending';
+  document.getElementById('j-payout-status').value='pending';
+  document.getElementById('j-paid').value='no';
+  document.getElementById('j-review').value='no';
+  fillCleanerSelect(document.getElementById('j-cleaner'),'');
+  document.getElementById('j-preview').innerHTML='';
+  document.getElementById('ov-job').classList.add('open');
+}
+
+function openEditJob(id){
+  const j=jobs.find(x=>x.id===id);if(!j)return;
+  editJobId=id;
+  document.getElementById('job-title').textContent='Edit job';
+  document.getElementById('j-del').style.display='';
+  const s=(id,v)=>document.getElementById('j-'+id).value=v||'';
+  s('date',j.date);s('time',j.time);s('name',j.name);s('phone',j.phone);
+  s('address',j.address);s('price',j.price);s('hours',j.hours);s('notes',j.notes);
+  s('service',j.service||'Standard cleaning');s('lead',j.lead||'TaskRabbit');
+  s('equip',j.equip||'Standard kit');s('status',j.status||'pending');
+  s('paid',j.paid||'no');s('method',j.method||'—');s('review',j.review||'no');
+  document.getElementById('j-payout-status').value=j.payoutStatus||'pending';
+  fillCleanerSelect(document.getElementById('j-cleaner'),j.cleaner||'');
+  document.getElementById('ov-job').classList.add('open');
+  calcPreview();
+}
+
+function saveJob(){
+  const name=document.getElementById('j-name').value.trim();
+  const date=document.getElementById('j-date').value;
+  if(!name||!date){alert('Name and date required');return;}
+  const g=id=>document.getElementById('j-'+id).value;
+  const j={id:editJobId||Date.now().toString(),name,date,time:g('time'),phone:g('phone'),
+    address:g('address'),service:g('service'),lead:g('lead'),cleaner:g('cleaner'),
+    equip:g('equip'),status:g('status'),price:g('price'),paid:g('paid'),
+    method:g('method'),hours:g('hours'),notes:g('notes'),review:g('review'),
+    payoutStatus:g('payout-status')};
+  if(editJobId)jobs=jobs.map(x=>x.id===editJobId?j:x);else jobs.push(j);
+  saveJ();closeJob();renderJobs();toast(editJobId?'Updated ✓':'Job added ✓');
+}
+function deleteJob(){
+  if(!editJobId||!confirm('Delete?'))return;
+  jobs=jobs.filter(x=>x.id!==editJobId);
+  saveJ();closeJob();renderJobs();toast('Deleted');
+}
+function closeJob(){document.getElementById('ov-job').classList.remove('open');}
+
+function renderCleaners(){
+  const el=document.getElementById('cleaners-grid');
+  if(!cleaners.length){el.innerHTML='<div style="color:var(--text3);font-size:13px">No cleaners yet.</div>';return;}
+  const SCH={'tuesday':'Every Tuesday','sameday':'Same day','manual':'Manual'};
+  el.innerHTML=cleaners.map(c=>{
+    const done=jobs.filter(j=>j.cleaner===c.id&&j.status==='done').length;
+    const paid=jobs.filter(j=>j.cleaner===c.id&&j.paid==='yes').reduce((s,j)=>s+cleanerRate(c.id,j.hours),0);
+    const pending=jobs.filter(j=>j.cleaner===c.id&&j.payoutStatus!=='paid').reduce((s,j)=>s+cleanerRate(c.id,j.hours),0);
+    const bg=c.color||'#378ADD';
+    const init=c.name.split(' ').map(w=>w[0]).join('').toUpperCase().slice(0,2);
+    return `<div class="cc">
+      <div class="cc-h"><div class="cc-av" style="background:${bg}22;color:${bg}">${init}</div>
+        <div><div class="cc-name">${esc(c.name)}</div><div class="cc-role">${LL[c.level]} · $${c[c.level]}/hr · ${SCH[c.schedule]||'Manual'}</div></div>
+      </div>
+      <div class="rates">
+        <div class="rr"><span>Trainee</span><span ${c.level==='r1'?'style="color:var(--green)"':''}>${c.r1||'—'}/hr${c.level==='r1'?' ←':''}</span></div>
+        <div class="rr"><span>Mid</span><span ${c.level==='r2'?'style="color:var(--green)"':''}>${c.r2||'—'}/hr${c.level==='r2'?' ←':''}</span></div>
+        <div class="rr"><span>Senior</span><span ${c.level==='r3'?'style="color:var(--green)"':''}>${c.r3||'—'}/hr${c.level==='r3'?' ←':''}</span></div>
+      </div>
+      <div class="cc-stats">
+        <div class="ccs"><div class="ccs-v">${done}</div><div class="ccs-l">Jobs done</div></div>
+        <div class="ccs"><div class="ccs-v">$${Math.round(paid)}</div><div class="ccs-l">Total paid out</div></div>
+      </div>
+      ${pending>0?`<div style="background:var(--amber-lt);border-radius:var(--r);padding:8px 10px;font-size:12px;color:var(--amber);margin-bottom:8px"><i class="ti ti-clock" style="font-size:13px"></i> Pending payout: <strong>$${Math.round(pending)}</strong></div>`:''}
+      <button class="btn btn-sm" style="width:100%" onclick="openEditCleaner('${c.id}')"><i class="ti ti-edit"></i> Edit</button>
+    </div>`;
+  }).join('');
+}
+
+function openNewCleaner(){
+  editCleanerId=null;
+  document.getElementById('cl-title').textContent='Add cleaner';
+  document.getElementById('cl-del').style.display='none';
+  document.getElementById('cl-name').value='';
+  document.getElementById('cl-r1').value='20';
+  document.getElementById('cl-r2').value='25';
+  document.getElementById('cl-r3').value='30';
+  document.getElementById('cl-level').value='r1';
+  document.getElementById('cl-color').value='#378ADD';
+  document.getElementById('cl-schedule').value='tuesday';
+  document.getElementById('ov-cleaner').classList.add('open');
+}
+function openEditCleaner(id){
+  const c=cleaners.find(x=>x.id===id);if(!c)return;
+  editCleanerId=id;
+  document.getElementById('cl-title').textContent='Edit cleaner';
+  document.getElementById('cl-del').style.display='';
+  document.getElementById('cl-name').value=c.name||'';
+  document.getElementById('cl-r1').value=c.r1||'';
+  document.getElementById('cl-r2').value=c.r2||'';
+  document.getElementById('cl-r3').value=c.r3||'';
+  document.getElementById('cl-level').value=c.level||'r1';
+  document.getElementById('cl-color').value=c.color||'#378ADD';
+  document.getElementById('cl-schedule').value=c.schedule||'tuesday';
+  document.getElementById('ov-cleaner').classList.add('open');
+}
+function saveCleaner(){
+  const name=document.getElementById('cl-name').value.trim();
+  if(!name){alert('Name required');return;}
+  const c={id:editCleanerId||Date.now().toString(),name,
+    r1:document.getElementById('cl-r1').value||'20',
+    r2:document.getElementById('cl-r2').value||'25',
+    r3:document.getElementById('cl-r3').value||'30',
+    level:document.getElementById('cl-level').value,
+    color:document.getElementById('cl-color').value,
+    schedule:document.getElementById('cl-schedule').value};
+  if(editCleanerId)cleaners=cleaners.map(x=>x.id===editCleanerId?c:x);else cleaners.push(c);
+  saveC();closeCleaner();renderCleaners();toast(editCleanerId?'Updated ✓':'Cleaner added ✓');
+}
+function deleteCleaner(){
+  if(!editCleanerId||!confirm('Delete?'))return;
+  cleaners=cleaners.filter(x=>x.id!==editCleanerId);
+  saveC();closeCleaner();renderCleaners();toast('Deleted');
+}
+function closeCleaner(){document.getElementById('ov-cleaner').classList.remove('open');}
+
+// CALENDAR
+function nextTuesday(dateStr){
+  const d=new Date(dateStr);
+  const day=d.getDay();
+  const diff=(2-day+7)%7||7;
+  d.setDate(d.getDate()+diff);
+  return d.toISOString().split('T')[0];
+}
+function calPrev(){calMonth--;if(calMonth<0){calMonth=11;calYear--;}renderCalendar();}
+function calNext(){calMonth++;if(calMonth>11){calMonth=0;calYear++;}renderCalendar();}
+function calToday(){calYear=new Date().getFullYear();calMonth=new Date().getMonth();renderCalendar();}
+
+function renderCalendar(){
+  document.getElementById('cal-label').textContent=MONTHS[calMonth]+' '+calYear;
+  const daysInMonth=new Date(calYear,calMonth+1,0).getDate();
+  const firstDay=(new Date(calYear,calMonth,1).getDay()+6)%7;
+  const today=todayStr();
+  const headEl=document.getElementById('cal-head-days');
+  headEl.innerHTML=['Mon','Tue','Wed','Thu','Fri','Sat','Sun'].map(d=>`<div class="cal-dh">${d}</div>`).join('');
+
+  let cells='';
+  for(let i=0;i<firstDay;i++){
+    const prevDate=new Date(calYear,calMonth,1-firstDay+i);
+    cells+=`<div class="cal-day other-month"><div class="cal-dn">${prevDate.getDate()}</div></div>`;
+  }
+  for(let d=1;d<=daysInMonth;d++){
+    const ds=`${calYear}-${String(calMonth+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+    const isToday=ds===today;
+    const dayJobs=jobs.filter(j=>j.date===ds);
+    const payouts=[];
+    cleaners.forEach(c=>{
+      const cJobs=jobs.filter(j=>j.cleaner===c.id&&j.payoutStatus!=='paid');
+      if(c.schedule==='tuesday'){
+        cJobs.forEach(j=>{
+          const pt=nextTuesday(j.date);
+          if(pt===ds)payouts.push({name:c.name,amount:cleanerRate(c.id,j.hours),color:c.color});
+        });
+      } else if(c.schedule==='sameday'){
+        cJobs.filter(j=>j.date===ds).forEach(j=>{
+          payouts.push({name:c.name,amount:cleanerRate(c.id,j.hours),color:c.color});
+        });
+      }
+    });
+    cells+=`<div class="cal-day${isToday?' today':''}">
+      <div class="cal-dn">${d}</div>
+      ${dayJobs.map(j=>`<div class="cal-event ce-job" onclick="openEditJob('${j.id}')" title="${esc(j.name)}">${esc(j.name.split(' ')[0])}</div>`).join('')}
+      ${payouts.map(p=>`<div class="cal-event ce-pay" title="Pay ${p.name}: $${p.amount.toFixed(2)}">💵 ${p.name} $${Math.round(p.amount)}</div>`).join('')}
+    </div>`;
+  }
+  document.getElementById('cal-days').innerHTML=cells;
+
+  const payEl=document.getElementById('payouts-list');
+  const allPayouts=[];
+  cleaners.forEach(c=>{
+    jobs.filter(j=>j.cleaner===c.id&&j.payoutStatus!=='paid'&&parseFloat(j.hours)>0).forEach(j=>{
+      let payDate=j.date;
+      if(c.schedule==='tuesday')payDate=nextTuesday(j.date);
+      const pd=new Date(payDate);
+      if(pd.getMonth()===calMonth&&pd.getFullYear()===calYear){
+        allPayouts.push({date:payDate,cleaner:c.name,color:c.color,job:j.name,amount:cleanerRate(c.id,j.hours),jobId:j.id,schedule:c.schedule});
+      }
+    });
+  });
+  allPayouts.sort((a,b)=>a.date<b.date?-1:1);
+  if(!allPayouts.length){
+    payEl.innerHTML='<div class="empty" style="padding:1.5rem"><i class="ti ti-check"></i>No pending payouts this month</div>';
+  } else {
+    payEl.innerHTML=allPayouts.map(p=>`
+      <div class="payout-row">
+        <span style="color:var(--text3);min-width:80px">${p.date}</span>
+        <span style="display:inline-flex;align-items:center;gap:5px"><span style="width:8px;height:8px;border-radius:50%;background:${p.color};display:inline-block"></span><strong>${esc(p.cleaner)}</strong></span>
+        <span class="dim">for: ${esc(p.job)}</span>
+        <span style="font-weight:500;color:var(--amber)">$${p.amount.toFixed(2)}</span>
+        <button class="btn btn-sm btn-g" onclick="markPaid('${p.jobId}')">Mark paid</button>
+      </div>`).join('');
+  }
+}
+
+function markPaid(jobId){
+  jobs=jobs.map(j=>j.id===jobId?{...j,payoutStatus:'paid'}:j);
+  saveJ();renderCalendar();renderCleaners();toast('Payout marked as paid ✓');
+}
+
+// PROFIT
+function renderProfit(){
+  const el=document.getElementById('profit-page');
+  const allJobs=jobs.filter(j=>j.price&&parseFloat(j.price)>0);
+  if(!allJobs.length){el.innerHTML='<div class="empty"><i class="ti ti-chart-bar-off"></i>No jobs with price yet.</div>';return;}
+
+  const monthMap={};
+  allJobs.forEach(j=>{
+    const d=new Date(j.date);
+    const key=`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}`;
+    if(!monthMap[key])monthMap[key]={rev:0,cost:0,label:MONTHS[d.getMonth()]+' '+d.getFullYear()};
+    monthMap[key].rev+=parseFloat(j.price)||0;
+    monthMap[key].cost+=cleanerRate(j.cleaner,j.hours);
+  });
+  expenses.forEach(e=>{
+    const d=new Date(e.date);
+    const key=`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}`;
+    if(!monthMap[key])monthMap[key]={rev:0,cost:0,label:MONTHS[d.getMonth()]+' '+d.getFullYear()};
+    monthMap[key].exp=(monthMap[key].exp||0)+(parseFloat(e.amount)||0);
+  });
+
+  const totRev=allJobs.reduce((s,j)=>s+(parseFloat(j.price)||0),0);
+  const totCost=allJobs.reduce((s,j)=>s+cleanerRate(j.cleaner,j.hours),0);
+  const totExp=expenses.reduce((s,e)=>s+(parseFloat(e.amount)||0),0);
+  const totNet=totRev-totCost-totExp;
+
+  el.innerHTML=`
+  <div class="stats" style="margin-bottom:20px">
+    ${stat('Total revenue','$'+Math.round(totRev).toLocaleString(),'g')}
+    ${stat('Cleaner costs','$'+Math.round(totCost).toLocaleString(),'r')}
+    ${stat('Expenses','$'+Math.round(totExp).toLocaleString(),'r')}
+    ${stat('Net profit','$'+Math.round(totNet).toLocaleString(),'p')}
+  </div>
+  <div style="font-size:13px;font-weight:500;color:var(--text2);margin-bottom:12px">Monthly breakdown</div>
+  <div class="monthly-summary">
+    ${Object.keys(monthMap).sort().reverse().map(k=>{
+      const m=monthMap[k];
+      const exp=m.exp||0;
+      const net=m.rev-m.cost-exp;
+      const margin=m.rev>0?Math.round((net/m.rev)*100):0;
+      return `<div class="ms-card">
+        <div class="ms-month">${m.label}</div>
+        <div class="ms-row"><span>Revenue</span><span style="color:var(--green);font-weight:500">$${Math.round(m.rev).toLocaleString()}</span></div>
+        <div class="ms-row"><span>Cleaner costs</span><span style="color:var(--red)">- $${Math.round(m.cost).toLocaleString()}</span></div>
+        <div class="ms-row"><span>Expenses</span><span style="color:var(--red)">- $${Math.round(exp).toLocaleString()}</span></div>
+        <div class="ms-total"><span>Net profit</span><span style="color:${net>=0?'var(--green)':'var(--red)'}">$${Math.round(net).toLocaleString()} <span style="font-size:12px;opacity:.7">${margin}%</span></span></div>
+      </div>`;
+    }).join('')}
+  </div>
+  <div style="margin-top:20px">
+    <div style="font-size:13px;font-weight:500;color:var(--text2);margin-bottom:12px">All jobs</div>
+    <div class="tbl">
+      <div class="thead" style="display:grid;grid-template-columns:1.2fr 0.8fr 0.8fr 0.9fr 0.9fr 0.9fr 0.6fr">
+        <div class="th">Job</div><div class="th">Cleaner</div><div class="th">Revenue</div>
+        <div class="th">Cleaner cost</div><div class="th">Gross profit</div><div class="th">Status</div><div class="th">Paid</div>
+      </div>
+      ${allJobs.sort((a,b)=>a.date<b.date?1:-1).map(j=>{
+        const price=parseFloat(j.price)||0;
+        const cost=cleanerRate(j.cleaner,j.hours);
+        const profit=price-cost;
+        return `<div class="trow" style="display:grid;grid-template-columns:1.2fr 0.8fr 0.8fr 0.9fr 0.9fr 0.9fr 0.6fr" onclick="openEditJob('${j.id}')">
+          <div class="td"><div class="jn">${esc(j.name)}</div><div class="js">${j.date}</div></div>
+          <div class="td dim">${esc(cleanerName(j.cleaner))}</div>
+          <div class="td">$${price.toFixed(2)}</div>
+          <div class="td" style="color:var(--red)">${cost>0?'- $'+cost.toFixed(2):'—'}</div>
+          <div class="td" style="color:var(--green);font-weight:500">$${profit.toFixed(2)}</div>
+          <div class="td"><span class="badge b-${j.status}">${SL[j.status]||j.status}</span></div>
+          <div class="td ${j.paid==='yes'?'':'dim'}" style="${j.paid==='yes'?'color:var(--green)':''}"> ${j.paid==='yes'?'✓ Yes':'No'}</div>
+        </div>`;
+      }).join('')}
+    </div>
+  </div>`;
+}
+
+// EXPENSES
+function renderExpenses(){
+  const total=expenses.reduce((s,e)=>s+(parseFloat(e.amount)||0),0);
+  const now=new Date();
+  const month=expenses.filter(e=>{const d=new Date(e.date);return d.getMonth()===now.getMonth()&&d.getFullYear()===now.getFullYear();}).reduce((s,e)=>s+(parseFloat(e.amount)||0),0);
+  const sup=expenses.filter(e=>e.cat==='supplies').reduce((s,e)=>s+(parseFloat(e.amount)||0),0);
+  const eq=expenses.filter(e=>e.cat==='equipment').reduce((s,e)=>s+(parseFloat(e.amount)||0),0);
+  document.getElementById('stats-exp').innerHTML=
+    stat('Total expenses','$'+Math.round(total).toLocaleString(),'r')+
+    stat('This month','$'+Math.round(month).toLocaleString())+
+    stat('Supplies','$'+Math.round(sup).toLocaleString())+
+    stat('Equipment','$'+Math.round(eq).toLocaleString());
+  const el=document.getElementById('exp-list');
+  let list=[...expenses].sort((a,b)=>a.date<b.date?1:-1);
+  if(expFilter!=='all')list=list.filter(e=>e.cat===expFilter);
+  if(!list.length){el.innerHTML=`<div class="empty"><i class="ti ti-receipt-off"></i>${expenses.length?'No items in this category':'No expenses yet'}</div>`;return;}
+  const cols='36px 1.5fr 1fr 0.8fr 0.7fr 0.6fr';
+  el.innerHTML=list.map((e,i)=>{
+    const col=EXP_COL[e.cat]||'#888';
+    return `<div class="trow" style="display:grid;grid-template-columns:${cols}" onclick="openEditExp('${e.id}')">
+      <div class="td num">${i+1}</div>
+      <div class="td"><div class="jn">${esc(e.name)}</div><div class="js">${esc(e.store||'')}${e.notes?' · '+esc(e.notes):''}</div></div>
+      <div class="td"><span style="display:inline-flex;align-items:center;gap:4px;font-size:12px;color:${col}"><span style="width:7px;height:7px;border-radius:50%;background:${col};display:inline-block"></span>${EXP_CAT[e.cat]||e.cat}</span></div>
+      <div class="td dim">${e.date}</div>
+      <div class="td" style="font-weight:500;color:var(--red)">$${parseFloat(e.amount).toFixed(2)}</div>
+      <div class="td dim">${e.receipt||'—'}</div>
+    </div>`;
+  }).join('');
+}
+
+function openNewExpense(){
+  editExpId=null;
+  document.getElementById('ex-title').textContent='Add expense';
+  document.getElementById('ex-del').style.display='none';
+  document.getElementById('ex-date').value=todayStr();
+  ['name','amount','store','receipt','notes'].forEach(id=>document.getElementById('ex-'+id).value='');
+  document.getElementById('ex-cat').selectedIndex=0;
+  document.getElementById('ov-expense').classList.add('open');
+}
+function openEditExp(id){
+  const e=expenses.find(x=>x.id===id);if(!e)return;
+  editExpId=id;
+  document.getElementById('ex-title').textContent='Edit expense';
+  document.getElementById('ex-del').style.display='';
+  const s=(id,v)=>document.getElementById('ex-'+id).value=v||'';
+  s('name',e.name);s('amount',e.amount);s('date',e.date);s('store',e.store);s('receipt',e.receipt);s('notes',e.notes);
+  document.getElementById('ex-cat').value=e.cat||'supplies';
+  document.getElementById('ov-expense').classList.add('open');
+}
+function saveExpense(){
+  const name=document.getElementById('ex-name').value.trim();
+  const amount=document.getElementById('ex-amount').value;
+  const date=document.getElementById('ex-date').value;
+  if(!name||!amount||!date){alert('Name, amount and date required');return;}
+  const e={id:editExpId||Date.now().toString(),name,amount,date,
+    cat:document.getElementById('ex-cat').value,
+    store:document.getElementById('ex-store').value,
+    receipt:document.getElementById('ex-receipt').value,
+    notes:document.getElementById('ex-notes').value};
+  if(editExpId)expenses=expenses.map(x=>x.id===editExpId?e:x);else expenses.push(e);
+  saveE();closeExpense();renderExpenses();renderJobStats();toast(editExpId?'Updated ✓':'Expense added ✓');
+}
+function deleteExpense(){
+  if(!editExpId||!confirm('Delete?'))return;
+  expenses=expenses.filter(x=>x.id!==editExpId);
+  saveE();closeExpense();renderExpenses();renderJobStats();toast('Deleted');
+}
+function closeExpense(){document.getElementById('ov-expense').classList.remove('open');}
+
+function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+
+if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js').catch(()=>{});
+
+function checkPw(){
+  const val=document.getElementById('pw-input').value;
+  if(val==='GODBLESSUS'){
+    sessionStorage.setItem('gg_auth','1');
+    document.getElementById('pw-screen').style.display='none';
+  } else {
+    document.getElementById('pw-err').textContent='Wrong password';
+    document.getElementById('pw-input').value='';
+    document.getElementById('pw-input').focus();
+    setTimeout(()=>document.getElementById('pw-err').textContent='',2000);
+  }
+}
+function initAuth(){
+  if(sessionStorage.getItem('gg_auth')==='1'){
+    document.getElementById('pw-screen').style.display='none';
+  } else {
+    setTimeout(()=>document.getElementById('pw-input').focus(),100);
+  }
+}
+
+load();updateJobsMonthLabel();renderJobs();initAuth();
+</script>
+</body>
+</html>
